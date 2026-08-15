@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="投标业绩证据核验工作台——领导展示、判断树与工作人员演示。" />
+    <title>业绩核验工作台｜公开演示</title>
+    <link rel="stylesheet" href="./styles.css?v=public-20260816" />
+  </head>
+  <body class="leader-home">
+    <main class="main-content">
+      <section id="leader-screen" class="leader-screen" aria-labelledby="leader-screen-title">
+        <header class="leader-nav">
+          <a class="leader-brand" href="./index.html" aria-label="业绩核验工作台首页">
+            <span>证</span>
+            <div><strong>业绩核验工作台</strong><small>DEMO_ONLY · 公开虚构案例</small></div>
+          </a>
+          <nav aria-label="演示页面入口">
+            <a href="../slides.html">五分钟路演</a>
+            <a href="./logic-sandbox.html">问答判断树</a>
+            <a href="./staff-shell.html">工作人员端</a>
+          </nav>
+        </header>
+
+        <div class="leader-hero">
+          <div>
+            <h1 id="leader-screen-title">一句企业自报，变成一条可复核记录</h1>
+            <p>系统把分散材料整理成带来源、理由和下一步的复核任务。</p>
+          </div>
+        </div>
+
+        <section id="leader-demo-board" class="leader-demo-board" data-demo-state="ready" aria-label="企业自报转化为复核任务的演示">
+          <article class="leader-input-card">
+            <div class="leader-card-label">企业自报</div>
+            <dl>
+              <div><dt>投标公司</dt><dd>广东远景数据有限公司</dd></div>
+              <div><dt>自报项目</dt><dd>政务数据治理服务项目</dd></div>
+            </dl>
+            <p>这只是一句虚构声明，还不是事实结论。</p>
+          </article>
+
+          <div class="leader-process">
+            <div class="leader-process-title">
+              <div><span>声明证据轨道</span><strong id="leader-demo-status">等待演示</strong></div>
+              <button id="leader-run-demo" class="button primary" type="button">演示一条记录</button>
+            </div>
+            <ol>
+              <li data-leader-step="1"><strong>找到候选</strong></li>
+              <li data-leader-step="2"><strong>读出原文</strong></li>
+              <li data-leader-step="3"><strong>项目一致</strong></li>
+              <li data-leader-step="4"><strong>主体冲突</strong></li>
+              <li data-leader-step="5"><strong>转人工</strong></li>
+            </ol>
+            <div class="leader-source-strip">
+              <span>原文依据 · 中标结果公告</span>
+              <blockquote>“项目编号相同，但供应商主体编号不同。”</blockquote>
+              <div><small>虚构政务采购平台 · DEMO_ONLY</small><a href="./logic-sandbox.html">查看完整判断逻辑 →</a></div>
+            </div>
+          </div>
+
+          <article class="leader-output-card">
+            <div class="leader-card-label">复核任务</div>
+            <div class="leader-result-state"><span>当前结论</span><strong>转人工复核</strong></div>
+            <dl>
+              <div><dt>判断理由</dt><dd>项目编号一致，企业信用代码不同</dd></div>
+              <div><dt>信息来源</dt><dd>中标结果公告</dd></div>
+              <div><dt>证据阶段</dt><dd>当前仅到中标线索</dd></div>
+              <div><dt>下一步</dt><dd>核对更名或主体桥接材料</dd></div>
+            </dl>
+          </article>
+        </section>
+
+        <div class="leader-principle-band" aria-label="AI、逻辑和人工的分工与系统边界">
+          <p><strong>AI</strong> 找和读；<strong>逻辑</strong> 核项目、主体与证据阶段；<strong>工作人员</strong> 最终确认。</p>
+          <p>没搜到 ≠ 虚假 · 中标 ≠ 履约 · 合同 ≠ 验收</p>
+        </div>
+      </section>
+    </main>
+    <script src="./leader.js?v=public-20260816" defer></script>
+  </body>
+</html>

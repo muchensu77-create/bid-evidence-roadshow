@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="投标业绩核验工作人员端——半真实任务、证据与人工复核流程。" />
+    <title>工作人员端｜业绩核验工作台</title>
+    <link rel="stylesheet" href="./staff-shell.css?v=staff-20260816" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">跳到主要内容</a>
+
+    <header class="site-header">
+      <a class="brand" href="./index.html" aria-label="返回领导展示页">
+        <span class="brand-mark" aria-hidden="true">证</span>
+        <span><strong>业绩核验工作台</strong><small>工作人员端 · 研究原型</small></span>
+      </a>
+      <nav class="header-actions" aria-label="跨页面导航">
+        <a href="./index.html">领导展示</a>
+        <a href="./logic-sandbox.html">判断树</a>
+        <a href="./ai_lab.html">DeepSeek 实验室</a>
+        <span class="header-primary public-note">175 条真实研究批次仅限本地</span>
+      </nav>
+    </header>
+
+    <div class="truth-banner" role="note">
+      <strong>当前边界：</strong>
+      <span>本页用 DEMO_ONLY 虚构任务演示工作人员流程；规则引擎、DeepSeek 实验室和官方检索 MCP 均已有独立原型，但尚未自动串成正式业务系统。</span>
+    </div>
+
+    <main id="main-content">
+      <section class="page-intro" aria-labelledby="page-title">
+        <div>
+          <span class="eyebrow">STAFF REVIEW WORKSPACE</span>
+          <h1 id="page-title">工作人员只做三件事：看依据、处理疑点、留下结论</h1>
+          <p>系统先把声明、候选材料和判断理由排好；工作人员不再从零搜索，而是在关键闸门上确认或补证。</p>
+        </div>
+        <ol class="how-to" aria-label="工作人员使用步骤">
+          <li><span>1</span><div><strong>选任务</strong><small>从五类队列进入</small></div></li>
+          <li><span>2</span><div><strong>看证据链</strong><small>项目、主体、阶段</small></div></li>
+          <li><span>3</span><div><strong>做人工处置</strong><small>确认、补证或退回</small></div></li>
+        </ol>
+      </section>
+
+      <nav class="workspace-tabs" aria-label="工作人员页面分区">
+        <button class="workspace-tab active" type="button" data-tab="tasks" aria-selected="true">01 · 任务处理</button>
+        <button class="workspace-tab" type="button" data-tab="systems" aria-selected="false">02 · 数据、AI 与 MCP</button>
+        <button class="workspace-tab" type="button" data-tab="rules" aria-selected="false">03 · 规则边界与人工职责</button>
+      </nav>
+
+      <section class="tab-panel active" data-panel="tasks" aria-labelledby="tasks-title">
+        <div class="panel-heading">
+          <div><span class="eyebrow">DEMO_ONLY · LOCAL SESSION</span><h2 id="tasks-title">虚构任务队列</h2></div>
+          <div class="panel-actions">
+            <span id="queue-summary">6 条虚构任务 · 当前显示全部</span>
+            <span>公开站不包含175条企业明细</span>
+          </div>
+        </div>
+
+        <div class="queue-filters" role="group" aria-label="按处置队列筛选">
+          <button class="queue-filter active" type="button" data-queue="all"><span id="count-all">6</span>全部任务</button>
+          <button class="queue-filter completed" type="button" data-queue="completed"><span id="count-completed">1</span>已完成候选</button>
+          <button class="queue-filter conducted" type="button" data-queue="conducted"><span id="count-conducted">1</span>曾开展候选</button>
+          <button class="queue-filter award" type="button" data-queue="award"><span id="count-award">1</span>仅中标线索</button>
+          <button class="queue-filter manual" type="button" data-queue="manual"><span id="count-manual">2</span>疑点待人工</button>
+          <button class="queue-filter evidence" type="button" data-queue="evidence"><span id="count-evidence">1</span>待补证</button>
+        </div>
+
+        <div class="task-workspace">
+          <section class="task-list-panel" aria-labelledby="task-list-title">
+            <div class="section-title-row"><h3 id="task-list-title">任务清单</h3><span>点击一条查看完整依据</span></div>
+            <div id="task-list" class="task-list"></div>
+          </section>
+
+          <section class="review-panel" aria-labelledby="review-title">
+            <div class="review-head">
+              <div><span id="record-id" class="record-id">TASK-002</span><h3 id="review-title">证据链与人工处置</h3></div>
+              <span id="record-state" class="state-pill manual">疑点待人工</span>
+            </div>
+
+            <div class="claim-summary">
+              <div><span>本次投标公司</span><strong id="claim-company"></strong><small id="claim-code"></small></div>
+              <div><span>自报历史项目</span><strong id="claim-project"></strong><small id="claim-project-code"></small></div>
+            </div>
+
+            <section class="evidence-source" aria-labelledby="source-title">
+              <div class="source-meta"><span id="source-type"></span><b>DEMO_ONLY</b></div>
+              <h4 id="source-title"></h4>
+              <blockquote id="source-quote"></blockquote>
+              <div><span id="source-platform"></span><span id="source-date"></span></div>
+            </section>
+
+            <section class="gate-section" aria-labelledby="gate-title">
+              <div class="section-title-row"><h4 id="gate-title">三道确定性闸门</h4><span>候选排序分不是“真实性概率”</span></div>
+              <div id="gate-grid" class="gate-grid"></div>
+            </section>
+
+            <section class="decision-section" aria-labelledby="decision-title">
+              <div><span>系统形成的复核候选</span><strong id="decision-title"></strong><p id="decision-reason"></p></div>
+              <dl>
+                <div><dt>当前缺口</dt><dd id="decision-gap"></dd></div>
+                <div><dt>建议下一步</dt><dd id="decision-next"></dd></div>
+                <div><dt>不能据此得出</dt><dd id="decision-boundary"></dd></div>
+              </dl>
+            </section>
+
+            <form id="review-form" class="human-review">
+              <div class="section-title-row"><h4>人工复核记录</h4><span>仅保存在本次页面会话，不写入正式系统</span></div>
+              <label>处理意见
+                <select id="review-action">
+                  <option value="pending">保留待人工</option>
+                  <option value="supplement">要求补充材料</option>
+                  <option value="confirm">人工确认候选结论</option>
+                  <option value="return">退回重新核查</option>
+                </select>
+              </label>
+              <label>意见说明
+                <textarea id="review-note" rows="3" placeholder="例如：请补充企业更名证明和验收材料。"></textarea>
+              </label>
+              <div class="review-actions"><button type="submit">保存本次演示意见</button><span id="review-save-state" role="status"></span></div>
+            </form>
+          </section>
+        </div>
+      </section>
+
+      <section class="tab-panel" data-panel="systems" aria-labelledby="systems-title" hidden>
+        <div class="panel-heading">
+          <div><span class="eyebrow">WHAT IS REAL TODAY</span><h2 id="systems-title">数据、DeepSeek、MCP 和规则引擎现在各做什么</h2></div>
+          <p>绿色表示当前已有；蓝色表示独立原型已验证；黄色表示仍需联调或正式资源。</p>
+        </div>
+
+        <div class="integration-flow" aria-label="能力接入链路">
+          <article><span class="status ready">已接入</span><b>任务声明库</b><strong>175 条</strong><p>投标公司＋自报历史项目。是待核查清单，不是标准答案。</p></article>
+          <i aria-hidden="true">→</i>
+          <article><span class="status ready">已编目</span><b>候选数据层</b><strong>3,776＋官网目录</strong><p>商购数据只作近期候选；官网目录保留查询记录和来源链接。</p></article>
+          <i aria-hidden="true">→</i>
+          <article><span class="status lab">独立原型</span><b>官方检索 MCP</b><strong>4 个工具</strong><p>受控搜索、抓取、搜索后抓取、正反向交叉核查；尚未接主队列。</p></article>
+          <i aria-hidden="true">→</i>
+          <article><span class="status lab">实验已验证</span><b>DeepSeek 抽取</b><strong>字段＋引句</strong><p>读取操作者粘贴的获准文本；尚未自动读取任意网页、PDF 或扫描件。</p></article>
+          <i aria-hidden="true">→</i>
+          <article><span class="status ready">已接入</span><b>确定性规则引擎</b><strong>项目＋主体＋阶段</strong><p>对已导入材料做保守比对，复杂关系和证据不足转人工。</p></article>
+        </div>
+
+        <div class="system-grid">
+          <article class="system-card">
+            <div class="system-card-head"><span>DATA</span><strong>三层数据，不混成一个“数据库”</strong></div>
+            <dl>
+              <div><dt>175 条声明库</dt><dd><b>本地已接</b> · 每条是待核查任务</dd></div>
+              <div><dt>3,776 条商购公告</dt><dd><b>候选目录</b> · 仅覆盖约 21 天，不能直接作事实证据</dd></div>
+              <div><dt>官网候选目录</dt><dd><b>研究编目</b> · 175/175 有查询记录，57 条达可靠官网候选目录状态</dd></div>
+              <div><dt>合同／验收附件</dt><dd><b class="pending-text">待主办方资源</b> · 公开网页通常覆盖不足</dd></div>
+            </dl>
+          </article>
+
+          <article class="system-card">
+            <div class="system-card-head"><span>MCP 0.2.0</span><strong>自定义官方检索连接层</strong></div>
+            <ul class="tool-list">
+              <li><code>search_official_sources</code><span>搜索获授权官网，结果仍是未核候选</span></li>
+              <li><code>fetch_official_page</code><span>遵守 robots 受控读取，并保留 URL、时间与哈希</span></li>
+              <li><code>search_and_fetch_official</code><span>串联搜索与最多 3 个候选读取</span></li>
+              <li><code>crosscheck_tender_information</code><span>固定先正向找支持，再反向查更正、终止、投诉等风险线索</span></li>
+            </ul>
+            <p class="system-boundary">MCP 输出的是待人工复核证据台账，没有自动 pass；不会绕过验证码、登录、403/429 或访问控制。</p>
+          </article>
+
+          <article class="system-card">
+            <div class="system-card-head"><span>DEEPSEEK</span><strong>AI 只做“读材料”的候选层</strong></div>
+            <ul class="check-list">
+              <li>提取项目名、编号、采购人、供应商、金额、日期和材料文种</li>
+              <li>给每个字段绑定逐字原文引句，便于工作人员回看</li>
+              <li>生成公司简称、项目别名等语义对齐候选</li>
+              <li class="negative">不核定法律主体、不判造假、不决定计分</li>
+            </ul>
+            <a class="inline-action" href="./ai_lab.html">打开独立 DeepSeek 实验室 →</a>
+          </article>
+
+          <article class="system-card highlight">
+            <div class="system-card-head"><span>NEXT INTEGRATION</span><strong>正式串联后的一条任务</strong></div>
+            <ol class="integration-steps">
+              <li>MCP 受控找官网候选并反向查撤销／更正</li>
+              <li>DeepSeek 读取获准文本，返回字段＋原文引句</li>
+              <li>规则引擎核项目编号、包组、主体代码和材料阶段</li>
+              <li>工作人员处理疑点、补证并最终确认</li>
+            </ol>
+            <p class="system-boundary">要完成联调，仍需获准来源清单、接口环境、投标附件、人工样本、权限日志和安全部署条件。</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="tab-panel" data-panel="rules" aria-labelledby="rules-title" hidden>
+        <div class="panel-heading">
+          <div><span class="eyebrow">DETERMINISTIC BOUNDARIES</span><h2 id="rules-title">系统怎么判断，什么时候必须停下来交给人</h2></div>
+          <a href="./logic-sandbox.html">打开可点击完整判断树 →</a>
+        </div>
+
+        <div class="rule-layout">
+          <section class="logic-card">
+            <h3>一项业绩要走过的四道门</h3>
+            <ol class="rule-gates">
+              <li><span>01</span><div><strong>先找到可回看的材料</strong><p>第三方摘要和 AI 输出只作候选；无可定位来源不能形成支持。</p></div></li>
+              <li><span>02</span><div><strong>确认是不是同一项目</strong><p>项目编号、包组优先；名称、采购人、年份用于辅助。只有名称像就转人工。</p></div></li>
+              <li><span>03</span><div><strong>确认是不是同一法律主体</strong><p>信用代码最强；更名、母子公司、分公司、联合体、分包需桥接材料。</p></div></li>
+              <li><span>04</span><div><strong>材料只支持到哪一步</strong><p>中标只是线索；合同可支持曾开展；验收才达到已完成候选的最低门槛。</p></div></li>
+            </ol>
+          </section>
+
+          <section class="stage-card">
+            <h3>材料阶段对应的当前口径</h3>
+            <div class="stage-row award"><span>中标／成交</span><strong>仅作为被选中的线索</strong><p>不能推出已经签合同、已经开展或已经完成。</p></div>
+            <div class="stage-row contract"><span>合同材料</span><strong>可进入“曾开展候选”</strong><p>仍要确认同一项目、同一主体、材料有效；不能推出已验收。</p></div>
+            <div class="stage-row acceptance"><span>验收材料</span><strong>达到“已完成候选”最低阶段</strong><p>仍由有权工作人员确认材料范围、效力和主体关系。</p></div>
+            <aside>本项目尚未配置：时间窗口、同类项目、角色资格、金额、计分、封顶与去重规则。它们必须按最终采购文件人工确认。</aside>
+          </section>
+
+          <section class="human-card">
+            <h3>工作人员必须做什么</h3>
+            <ul>
+              <li>查看来源页和原文引句，确认材料没有被断章取义</li>
+              <li>核项目编号、包组、信用代码和供应商承担角色</li>
+              <li>处理更名、承继、联合体、分包、分公司等复杂关系</li>
+              <li>要求补合同、验收或主体桥接材料</li>
+              <li>记录谁在何时基于哪份材料作了什么处置</li>
+            </ul>
+          </section>
+
+          <section class="unknown-card">
+            <h3>系统现在查不到或不能替人决定什么</h3>
+            <ul>
+              <li>未公开、旧网页失效或需要登录的合同与验收材料</li>
+              <li>缺少项目编号、信用代码、包组和年份时的唯一对应关系</li>
+              <li>联合体内部份额、分包范围、企业更名承继的法律效力</li>
+              <li>本次采购文件的同类项目、时间、金额和计分资格</li>
+              <li>企业是否造假以及是否淘汰等正式不利决定</li>
+            </ul>
+            <strong>查不到 → 证据不足；有歧义 → 人工复核。二者都不等于“虚假”。</strong>
+          </section>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <span>顺德区政数局赛题 A · 投标业绩核验</span>
+      <strong>研究原型 · 不替代有权人员的正式认定</strong>
+    </footer>
+
+    <script src="./staff-shell.js"></script>
+  </body>
+</html>

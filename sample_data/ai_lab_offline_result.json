@@ -1,0 +1,72 @@
+{
+  "ok": true,
+  "mode": "offline_sample",
+  "schema_version": "ai-evidence-extraction-1.0",
+  "model": "OFFLINE_SAMPLE_NOT_A_LIVE_MODEL_CALL",
+  "extraction": {
+    "project_name": "顺风区公共服务数据平台建设项目",
+    "project_code": "DEMO-2026-0815",
+    "purchaser": "顺风区数据服务中心",
+    "packages": [
+      {
+        "package_name": "包组一",
+        "package_code": "A01",
+        "suppliers": [
+          {"name": "岭南云启科技有限公司", "role": "联合体牵头人", "award_status": "中标/成交"},
+          {"name": "湾区数据工程有限公司", "role": "联合体成员", "award_status": "不明确"}
+        ],
+        "amounts": [
+          {"raw_text": "人民币1,500,000.00元", "value": 1500000, "currency": "CNY", "amount_type": "预算金额"},
+          {"raw_text": "人民币1,280,000.00元", "value": 1280000, "currency": "CNY", "amount_type": "中标/成交金额"}
+        ]
+      },
+      {
+        "package_name": "包组二",
+        "package_code": "A02",
+        "suppliers": [
+          {"name": "明海信息技术有限公司", "role": "中标供应商", "award_status": "中标/成交"}
+        ],
+        "amounts": [
+          {"raw_text": "人民币680,000.00元", "value": 680000, "currency": "CNY", "amount_type": "中标/成交金额"}
+        ]
+      }
+    ],
+    "unassigned_suppliers": [],
+    "unassigned_amounts": [],
+    "notice_type": "中标公告",
+    "evidence_stage": "中标/成交",
+    "dates": [
+      {"date": "2026年8月15日", "date_type": "公告日期"}
+    ],
+    "source_quotes": [
+      {"field": "project_name", "quote": "项目名称：顺风区公共服务数据平台建设项目", "quote_verified": true, "start_char": 36, "end_char": 56},
+      {"field": "project_code", "quote": "项目编号：DEMO-2026-0815", "quote_verified": true, "start_char": 57, "end_char": 76},
+      {"field": "purchaser", "quote": "采购人：顺风区数据服务中心", "quote_verified": true, "start_char": 77, "end_char": 90},
+      {"field": "notice_type", "quote": "公告类型：中标结果公告", "quote_verified": true, "start_char": 91, "end_char": 102},
+      {"field": "dates[0]", "quote": "公告日期：2026年8月15日", "quote_verified": true, "start_char": 103, "end_char": 118},
+      {"field": "packages[0]", "quote": "包组一（包组编号：A01）", "quote_verified": true, "start_char": 120, "end_char": 133},
+      {"field": "packages[0].suppliers[0]", "quote": "包组一（包组编号：A01）\n中标供应商：岭南云启科技有限公司（联合体牵头人）", "quote_verified": true, "start_char": 120, "end_char": 158},
+      {"field": "packages[0].suppliers[1]", "quote": "包组一（包组编号：A01）\n中标供应商：岭南云启科技有限公司（联合体牵头人）\n联合体成员：湾区数据工程有限公司", "quote_verified": true, "start_char": 120, "end_char": 175},
+      {"field": "packages[0].amounts[0]", "quote": "包组一（包组编号：A01）\n中标供应商：岭南云启科技有限公司（联合体牵头人）\n联合体成员：湾区数据工程有限公司\n预算金额：人民币1,500,000.00元", "quote_verified": true, "start_char": 120, "end_char": 197},
+      {"field": "packages[0].amounts[1]", "quote": "包组一（包组编号：A01）\n中标供应商：岭南云启科技有限公司（联合体牵头人）\n联合体成员：湾区数据工程有限公司\n预算金额：人民币1,500,000.00元\n中标金额：人民币1,280,000.00元", "quote_verified": true, "start_char": 120, "end_char": 219},
+      {"field": "packages[1]", "quote": "包组二（包组编号：A02）", "quote_verified": true, "start_char": 221, "end_char": 234},
+      {"field": "packages[1].suppliers[0]", "quote": "包组二（包组编号：A02）\n中标供应商：明海信息技术有限公司", "quote_verified": true, "start_char": 221, "end_char": 251},
+      {"field": "packages[1].amounts[0]", "quote": "包组二（包组编号：A02）\n中标供应商：明海信息技术有限公司\n中标金额：人民币680,000.00元", "quote_verified": true, "start_char": 221, "end_char": 271},
+      {"field": "evidence_stage", "quote": "本公告仅公布中标结果，不包含合同签订、结算或验收信息。", "quote_verified": true, "start_char": 273, "end_char": 300}
+    ],
+    "ambiguities": [],
+    "aliases": []
+  },
+  "ungrounded_candidates": {
+    "ambiguities": ["公告未提供合同签订或验收证据，该句只是AI模糊点候选，不进入事实区。"]
+  },
+  "meta": {
+    "input_chars": 301,
+    "quote_count": 14,
+    "verified_quote_count": 14,
+    "automatic_verdict": false,
+    "source_provenance": "DEMO_ONLY用户粘贴虚构文本，未经来源认证",
+    "position_unit": "Unicode code point",
+    "offline_notice": "本文件是手工准备的离线展示样例，不是实时 DeepSeek 返回。"
+  }
+}

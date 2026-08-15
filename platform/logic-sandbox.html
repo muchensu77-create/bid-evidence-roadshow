@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="投标业绩核验判断逻辑沙盘——用于问答环节解释系统为何停止、转人工或形成阶段候选。"
+    />
+    <title>判断逻辑沙盘｜业绩核验工作台</title>
+    <link rel="stylesheet" href="./logic-sandbox.css" />
+  </head>
+  <body>
+    <header class="sandbox-header">
+      <a class="back-link" href="./index.html" aria-label="返回主路演屏">
+        <span aria-hidden="true">←</span>
+        返回主路演屏
+      </a>
+
+      <div class="header-title">
+        <div class="eyebrow">问答环节 · 完整判断逻辑</div>
+        <h1>判断逻辑沙盘</h1>
+        <p>点一个条件，右侧立即解释：系统看到了什么、为什么这样处理、下一步交给谁。</p>
+      </div>
+
+      <div class="header-actions">
+        <span class="demo-badge">DEMO_ONLY · 全部为虚构案例</span>
+        <a class="reset-button" href="./staff-shell.html">工作人员端</a>
+        <button id="reset-path" class="reset-button" type="button">回到默认案例</button>
+      </div>
+    </header>
+
+    <main class="sandbox-layout">
+      <section class="logic-panel" aria-labelledby="logic-title">
+        <div class="logic-heading">
+          <div>
+            <div class="eyebrow">从一句自报，到一条可复核记录</div>
+            <h2 id="logic-title">系统在哪里继续，在哪里踩刹车？</h2>
+          </div>
+          <p><span class="click-dot"></span>所有方框都能点</p>
+        </div>
+
+        <div class="logic-roles" aria-label="人工智能、确定性逻辑和工作人员的分工">
+          <span><b class="role-dot ai"></b><strong>AI</strong> 找材料、读原文</span>
+          <span><b class="role-dot rule"></b><strong>确定性逻辑</strong> 对项目、核企业、看阶段</span>
+          <span><b class="role-dot human"></b><strong>工作人员</strong> 最终确认</span>
+        </div>
+
+        <div class="tree" id="logic-tree">
+          <button class="tree-node start" type="button" data-node="claim">
+            <span class="node-kicker">输入</span>
+            <strong>企业自报一项历史业绩</strong>
+            <small>只有公司名＋项目名，还不是事实结论</small>
+          </button>
+
+          <div class="down-arrow" aria-hidden="true"><span>↓</span></div>
+
+          <div class="decision-block">
+            <button class="tree-node decision ai-node" type="button" data-node="candidate">
+              <span class="node-number">01</span>
+              <span>
+                <span class="node-kicker">AI 寻找并读取</span>
+                <strong>找到可核的候选材料吗？</strong>
+              </span>
+            </button>
+            <div class="branch-grid two-branch">
+              <button class="tree-node outcome neutral" type="button" data-node="no_candidate">
+                <span class="branch-answer">否</span>
+                <strong>证据不足</strong>
+                <small>没搜到 ≠ 虚假</small>
+              </button>
+              <button class="tree-node continue" type="button" data-node="candidate_yes">
+                <span class="branch-answer">是</span>
+                <strong>继续核对项目</strong>
+                <small>候选材料不等于有效证据</small>
+              </button>
+            </div>
+          </div>
+
+          <div class="down-arrow" aria-hidden="true"><span>↓</span></div>
+
+          <div class="decision-block">
+            <button class="tree-node decision rule-node" type="button" data-node="project">
+              <span class="node-number">02</span>
+              <span>
+                <span class="node-kicker">项目关系</span>
+                <strong>材料说的是同一个项目吗？</strong>
+              </span>
+            </button>
+            <div class="branch-grid three-branch">
+              <button class="tree-node outcome danger" type="button" data-node="project_conflict">
+                <span class="branch-answer">硬字段冲突</span>
+                <strong>项目冲突</strong>
+                <small>编号或包组对不上</small>
+              </button>
+              <button class="tree-node continue" type="button" data-node="project_yes">
+                <span class="branch-answer">明确一致</span>
+                <strong>继续核对企业</strong>
+                <small>项目编号、名称等能够对应</small>
+              </button>
+              <button class="tree-node outcome warning" type="button" data-node="project_similar">
+                <span class="branch-answer">只有名称相似</span>
+                <strong>转人工复核</strong>
+                <small>不能只靠相似度自动支持</small>
+              </button>
+            </div>
+          </div>
+
+          <div class="down-arrow" aria-hidden="true"><span>↓</span></div>
+
+          <div class="decision-block">
+            <button class="tree-node decision rule-node" type="button" data-node="entity">
+              <span class="node-number">03</span>
+              <span>
+                <span class="node-kicker">企业主体</span>
+                <strong>公告里的企业是本次投标公司吗？</strong>
+              </span>
+            </button>
+            <div class="branch-grid three-branch">
+              <button class="tree-node outcome danger" type="button" data-node="entity_conflict">
+                <span class="branch-answer">信用代码冲突</span>
+                <strong>写明主体疑点</strong>
+                <small>默认案例在这里踩刹车</small>
+              </button>
+              <button class="tree-node continue" type="button" data-node="entity_yes">
+                <span class="branch-answer">明确一致</span>
+                <strong>继续判断材料阶段</strong>
+                <small>同一法律主体得到支持</small>
+              </button>
+              <button class="tree-node outcome warning" type="button" data-node="complex_entity">
+                <span class="branch-answer">复杂关系</span>
+                <strong>补主体桥接材料</strong>
+                <small>更名、联合体、分公司等</small>
+              </button>
+            </div>
+          </div>
+
+          <div class="down-arrow" aria-hidden="true"><span>↓</span></div>
+
+          <div class="decision-block stage-block">
+            <button class="tree-node decision rule-node" type="button" data-node="stage">
+              <span class="node-number">04</span>
+              <span>
+                <span class="node-kicker">证据阶段</span>
+                <strong>公开材料最高支持到哪一步？</strong>
+              </span>
+            </button>
+            <div class="branch-grid three-branch stage-branches">
+              <button class="tree-node outcome award" type="button" data-node="award">
+                <span class="branch-answer">中标公告</span>
+                <strong>仅中标线索</strong>
+                <small>不代表已开展或已完成</small>
+              </button>
+              <button class="tree-node outcome contract" type="button" data-node="contract">
+                <span class="branch-answer">合同材料</span>
+                <strong>曾开展候选</strong>
+                <small>尚不能证明已经完成</small>
+              </button>
+              <button class="tree-node outcome acceptance" type="button" data-node="acceptance">
+                <span class="branch-answer">验收材料</span>
+                <strong>已完成候选</strong>
+                <small>仍需工作人员最终确认</small>
+              </button>
+            </div>
+          </div>
+
+          <div class="down-arrow" aria-hidden="true"><span>↓</span></div>
+
+          <button class="tree-node final human-node" type="button" data-node="human">
+            <span class="node-kicker">最终一步</span>
+            <strong>工作人员查看原文、疑点和下一步，作最终确认</strong>
+            <small>系统只形成复核候选，不替代有权人员作正式认定</small>
+          </button>
+        </div>
+      </section>
+
+      <aside class="case-panel" aria-labelledby="case-title">
+        <div class="case-sticky">
+          <div class="case-header">
+            <div>
+              <div class="eyebrow">点击节点后的解释</div>
+              <h2 id="case-title">虚构案例如何走这条路？</h2>
+            </div>
+            <span id="case-state" class="case-state manual">人工复核</span>
+          </div>
+
+          <div class="selected-node" aria-live="polite">
+            <span>当前查看</span>
+            <strong id="selected-title">企业主体：信用代码冲突</strong>
+            <p id="selected-summary">项目能够对应，但企业信用代码不一致。系统必须在这里停止自动支持。</p>
+          </div>
+
+          <section class="case-section statement-section">
+            <div class="section-label"><span>1</span> 企业自报</div>
+            <dl class="statement-list">
+              <div>
+                <dt>投标公司</dt>
+                <dd id="claim-company">佛山市海岳数智科技有限公司</dd>
+              </div>
+              <div>
+                <dt>自报项目</dt>
+                <dd id="claim-project">顺峰区政务服务一体化平台升级项目</dd>
+              </div>
+            </dl>
+          </section>
+
+          <section class="case-section evidence-section">
+            <div class="section-label"><span>2</span> 候选原文</div>
+            <blockquote id="evidence-quote">
+              “项目编号：SFZC-2024-017；供应商名称：广东海岳信息技术有限公司；统一社会信用代码：91440606MA8X7B2B7K。”
+            </blockquote>
+            <div class="source-line">
+              <span>虚构政府采购结果公告</span>
+              <b>DEMO_ONLY</b>
+            </div>
+          </section>
+
+          <section class="case-section condition-section">
+            <div class="section-label"><span>3</span> 条件检查</div>
+            <div id="condition-list" class="condition-list"></div>
+          </section>
+
+          <section class="case-section output-section">
+            <div class="section-label"><span>4</span> 系统输出</div>
+            <div class="output-card">
+              <span>当前结论</span>
+              <strong id="output-result">主体关系存疑，转人工复核</strong>
+            </div>
+            <div class="output-detail">
+              <div>
+                <span>为什么</span>
+                <p id="output-reason">项目字段能够对应，但公告企业与投标公司的信用代码不一致。</p>
+              </div>
+              <div>
+                <span>下一步</span>
+                <p id="output-next">补充企业更名、承继或其他主体桥接材料，由工作人员确认。</p>
+              </div>
+            </div>
+          </section>
+
+          <div class="safety-principle">
+            <strong>系统原则</strong>
+            <p id="safety-copy">复杂主体关系统一转人工；不让名称相似替代法律主体核对。</p>
+          </div>
+
+          <div class="answer-script">
+            <span>给评委的一句话</span>
+            <p id="answer-copy">“这一条不是没搜到，而是搜到了相似项目、却发现企业信用代码冲突，所以系统主动踩刹车，交给工作人员核实主体关系。”</p>
+          </div>
+        </div>
+      </aside>
+    </main>
+
+    <footer class="sandbox-footer">
+      <span>AI 找和读 · 确定性逻辑守边界 · 工作人员最终确认</span>
+      <strong>证据不够，就说明缺什么并转人工，而不是自动判假。</strong>
+    </footer>
+
+    <script src="./logic-sandbox.js"></script>
+  </body>
+</html>

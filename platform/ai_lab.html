@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'none'" />
+    <meta name="referrer" content="no-referrer" />
+    <meta name="description" content="DeepSeek AI公开公告证据抽取实验室。" />
+    <title>DeepSeek AI证据抽取实验室</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <link rel="stylesheet" href="./ai_lab.css" />
+  </head>
+  <body class="ai-lab-body">
+    <main class="ai-lab-shell">
+      <header class="ai-lab-header">
+        <div class="ai-lab-brand">
+          <div class="brand-mark">AI</div>
+          <div>
+            <div class="eyebrow">Independent experiment · 不接入核验结论</div>
+            <h1>DeepSeek AI证据抽取实验室</h1>
+            <p class="lede">AI负责读材料，规则引擎与人工负责结论。</p>
+          </div>
+        </div>
+        <div id="service-status" class="service-status">正在检查本地服务…</div>
+      </header>
+
+      <section class="online-warning" aria-label="在线发送警告">
+        <strong>127.0.0.1 只是本地中转，不代表文本留在本机</strong>
+        <p>只有点击“调用 DeepSeek（在线）”时，当前文本才会发送至 DeepSeek 在线服务。<strong>真实投标文件、政府脱敏数据、private_data 和其他受控信息不得上传。</strong></p>
+      </section>
+
+      <section class="lab-grid">
+        <article class="lab-panel input-panel">
+          <div class="panel-title-row">
+            <div>
+              <div class="eyebrow">Step 1 · 用户主动提供</div>
+              <h2>粘贴公开公告正文或虚构文本</h2>
+            </div>
+            <span id="char-count" class="char-count">0 / 20,000</span>
+          </div>
+          <textarea id="source-text" maxlength="20000" spellcheck="false" placeholder="请只粘贴可以发送到外部AI的公开公告正文，或使用下方 DEMO_ONLY 虚构样例。"></textarea>
+
+          <label class="option-row">
+            <input id="include-aliases" type="checkbox" />
+            <span>生成项目别名/简称候选解释（只是候选，不是同一项目结论）</span>
+          </label>
+
+          <label class="consent-row">
+            <input id="online-consent" type="checkbox" />
+            <span>我确认当前内容只是公开公告或虚构文本，并允许将其发送至 DeepSeek 在线服务。</span>
+          </label>
+
+          <div class="button-row">
+            <button id="load-demo" class="button ghost" type="button">载入 DEMO_ONLY 虚构公告</button>
+            <button id="call-deepseek" class="button primary" type="button">调用 DeepSeek（在线）</button>
+            <button id="show-offline" class="button secondary" type="button">查看离线样例（不联网）</button>
+          </div>
+          <p class="request-note">本实验室一次只处理一段用户主动粘贴的文本；不读取175条政府数据，不扫描 private_data，不自动重试。</p>
+        </article>
+
+        <aside class="lab-panel boundary-panel">
+          <div class="eyebrow">AI只做什么</div>
+          <h2>抽取与原文定位</h2>
+          <ul>
+            <li>项目名称、编号、采购人</li>
+            <li>多包组、供应商、角色与中标状态</li>
+            <li>预算/中标/合同/结算金额分型</li>
+            <li>公告类型、证据阶段、日期、原文引句</li>
+            <li>模糊点与可选别名候选解释</li>
+          </ul>
+          <div class="forbidden-box">
+            <strong>AI不输出</strong>
+            <span>真假、虚假概率、最终同一主体/项目、是否加分、是否通过。</span>
+          </div>
+          <p class="request-note">“原文已定位”只表示引句在用户粘贴文本中存在，不表示该文本来自官网或事实已认定。</p>
+        </aside>
+      </section>
+
+      <section id="result-section" class="result-section" hidden>
+        <div id="result-banner" class="result-banner"></div>
+        <div id="result-content" class="result-content"></div>
+      </section>
+    </main>
+    <script src="./ai_lab.js" defer></script>
+  </body>
+</html>

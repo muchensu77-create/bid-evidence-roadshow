@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>赛题A｜投标人自报业绩核验</title>
+  <style>
+    :root{--ink:#171717;--muted:#686868;--line:#b9b9b9;--paper:#f6f5f1;--card:#fff;--soft:#e9e8e3;--accent:#8b1e1e;--accent-soft:#efe4e1;--serif:"STFangsong","FangSong","Songti SC","Noto Serif CJK SC",serif}
+    *{box-sizing:border-box}
+    html,body{width:100%;height:100%;margin:0;overflow:hidden;background:#171717;color:var(--ink);font-family:var(--serif)}
+    button{font:inherit}
+    .deck{position:relative;width:100vw;height:100vh}
+    .slide{position:absolute;inset:0;display:grid;grid-template-rows:auto 1fr auto;padding:4.7vh 6.3vw 3.5vh;background-color:var(--paper);background-image:linear-gradient(90deg,rgba(0,0,0,.025) 1px,transparent 1px),linear-gradient(rgba(0,0,0,.018) 1px,transparent 1px);background-size:7.5vw 100%,100% 11.5vh;opacity:0;visibility:hidden;transform:translateX(1.2%);transition:opacity .32s ease,transform .32s ease,visibility .32s}
+    .slide.active{opacity:1;visibility:visible;transform:none;z-index:2}
+    .slide::before{content:"";position:absolute;left:2.1vw;top:4.8vh;width:3px;height:8.5vh;background:linear-gradient(var(--accent) 0 32%,var(--ink) 32% 100%)}
+    .slide::after{content:attr(data-mark);position:absolute;right:5vw;top:3.2vh;font-size:clamp(62px,8vw,150px);line-height:1;color:rgba(0,0,0,.028);letter-spacing:-.05em;pointer-events:none}
+    .kicker{font-size:clamp(13px,1vw,19px);letter-spacing:.16em;color:var(--muted);margin-bottom:1.4vh}
+    h1{font-size:clamp(38px,4vw,76px);font-weight:500;line-height:1.08;letter-spacing:.015em;margin:0}
+    h2{font-size:clamp(25px,2.3vw,44px);font-weight:500;line-height:1.22;margin:0}
+    p{margin:0;line-height:1.55}
+    .lead{font-size:clamp(19px,1.5vw,30px);color:var(--muted);margin-top:1.3vh}
+    .body{min-height:0;display:flex;align-items:center;padding:2.5vh 0 1.7vh}
+    .footer{display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--ink);padding-top:1.5vh;font-size:clamp(11px,.78vw,15px);color:var(--muted);letter-spacing:.05em}
+    .page-no{color:var(--ink)}
+    .flow{width:100%;display:grid;grid-template-columns:repeat(5,1fr);gap:1.3vw;align-items:stretch}
+    .step{position:relative;border-top:2px solid var(--ink);padding:2.5vh 1.05vw;background:rgba(255,255,255,.68);box-shadow:0 10px 28px rgba(0,0,0,.035)}
+    .step:not(:last-child)::after{content:"→";position:absolute;right:-1.05vw;top:47%;font-size:1.5vw;color:var(--muted)}
+    .num{font-size:clamp(12px,.85vw,16px);color:var(--muted);letter-spacing:.12em}
+    .verb{font-size:clamp(30px,2.4vw,47px);margin:1.1vh 0 .7vh}
+    .desc{font-size:clamp(16px,1.16vw,23px);color:var(--muted)}
+    .conclusion{margin-top:2vh;text-align:center;font-size:clamp(22px,1.8vw,35px);letter-spacing:.025em}
+    .conclusion strong,.lead strong,.bridge strong{color:var(--accent);font-weight:500}
+    .eyebrow{display:inline-flex;align-items:center;margin-bottom:1.1vh;padding:.45vh .65vw;border:1px solid var(--accent);color:var(--accent);background:rgba(255,255,255,.6);font-size:clamp(12px,.8vw,15px);letter-spacing:.08em}
+    .factbar{display:flex;justify-content:center;gap:1.2vw;margin-top:1.6vh;flex-wrap:wrap}
+    .fact{border-left:2px solid var(--accent);padding:.6vh .9vw;text-align:left;background:rgba(255,255,255,.5);font-size:clamp(15px,1vw,20px);line-height:1.35}
+    .fact small{display:block;color:var(--muted);font-size:.78em;margin-top:.25vh}
+    .split{display:grid;grid-template-columns:1.8fr .8fr;gap:2.5vw;width:100%;align-items:stretch}
+    .repeat{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2vw;align-content:center}
+    .repeat div{border-bottom:1px solid var(--line);padding:2vh .65vw;font-size:clamp(18px,1.38vw,27px)}
+    .repeat small{display:block;color:var(--muted);font-size:.65em;margin-top:.45vh;line-height:1.35}
+    .judgement{display:flex;flex-direction:column;justify-content:center;border:1px solid var(--ink);padding:2.2vw;background:#fff}
+    .judgement .big{font-size:clamp(34px,3.3vw,64px);margin-bottom:1.5vh}
+    .judgement p{font-size:clamp(17px,1.22vw,24px);color:var(--muted)}
+    .slogan{text-align:center;font-size:clamp(23px,1.95vw,38px);margin-top:2.2vh}
+    .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1.6vw;width:100%}
+    .card{position:relative;border:1px solid var(--ink);background:#fff;padding:2.15vw;min-height:34vh;display:flex;flex-direction:column;box-shadow:0 16px 38px rgba(0,0,0,.045)}
+    .card .index{font-size:clamp(12px,.85vw,16px);color:var(--muted);letter-spacing:.12em}
+    .card h2{margin:1.3vh 0 1.6vh}
+    .brand{display:inline-block;align-self:flex-start;border:1px solid var(--ink);border-left:4px solid var(--accent);padding:.55vh .65vw;margin-bottom:1.7vh;font-size:clamp(14px,1vw,19px)}
+    .card p{font-size:clamp(16px,1.16vw,23px);color:var(--muted)}
+    .card small{font-size:.74em;color:var(--muted);line-height:1.4}
+    .result{margin-top:auto!important;color:var(--ink)!important;border-top:1px solid var(--line);padding-top:1.4vh}
+    .bridge{margin-top:1.7vh;border-left:3px solid var(--ink);padding-left:1.2vw;font-size:clamp(19px,1.43vw,28px)}
+    .bridge small{display:block;margin-top:.55vh;color:var(--muted);font-size:.68em;line-height:1.45}
+    .transform{display:grid;grid-template-columns:.78fr 1.5fr .95fr;gap:1.5vw;width:100%;align-items:stretch}
+    .panel{border:1px solid var(--ink);background:#fff;padding:1.7vw;display:flex;flex-direction:column}
+    .panel-title{font-size:clamp(16px,1.1vw,22px);color:var(--muted);letter-spacing:.08em;margin-bottom:1.4vh}
+    .claim{font-size:clamp(19px,1.38vw,27px);line-height:1.55}
+    .chain{display:grid;grid-template-columns:repeat(5,1fr);gap:.55vw;align-items:center;margin:auto 0}
+    .chain span{border-top:2px solid var(--ink);padding:1.3vh .35vw 0;text-align:center;font-size:clamp(16px,1.13vw,22px)}
+    .outputs{display:grid;gap:.8vh;font-size:clamp(17px,1.2vw,24px)}
+    .outputs span{border-bottom:1px solid var(--line);padding:.65vh 0}
+    .principle{margin-top:1.3vh;display:grid;grid-template-columns:1fr 1fr;gap:1.3vw;font-size:clamp(17px,1.15vw,23px)}
+    .principle div{border-top:1px solid var(--ink);padding-top:1.1vh}
+    .principle div:last-child{border-top-color:var(--accent);color:var(--accent)}
+    .logic-extra{display:grid;grid-template-columns:repeat(3,1fr);gap:1vw;margin-top:1.5vh;width:100%}
+    .logic-extra div{padding:.85vh .75vw;background:rgba(255,255,255,.55);border-bottom:1px solid var(--line);font-size:clamp(14px,.96vw,19px);color:var(--muted)}
+    .logic-extra b{color:var(--ink);font-weight:500}
+    .stage-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:1vw;margin-top:1.25vh;width:100%}
+    .stage-item{position:relative;padding:.8vh .75vw .85vh;border-top:2px solid var(--ink);background:rgba(255,255,255,.62);font-size:clamp(14px,.93vw,18px);color:var(--muted)}
+    .stage-item b{display:block;color:var(--ink);font-size:1.12em;font-weight:500;margin-bottom:.25vh}
+    .stage-item:not(:last-child)::after{content:"→";position:absolute;right:-.85vw;top:35%;color:var(--accent)}
+    .demo-frame{width:100%;border:1px solid var(--ink);background:#fff;padding:2.1vw;display:grid;grid-template-columns:.7fr 1.25fr 1fr;gap:1.3vw}
+    .demo-col{border-right:1px solid var(--line);padding-right:1.3vw}
+    .demo-col:last-child{border-right:0;padding-right:0}
+    .demo-label{color:var(--muted);font-size:clamp(13px,.9vw,17px);margin-bottom:1.2vh}
+    .demo-main{font-size:clamp(17px,1.2vw,23px);line-height:1.65}
+    .status{display:inline-block;border:1px solid var(--accent);color:var(--accent);background:var(--accent-soft);padding:.5vh .65vw;margin-bottom:1.2vh}
+    .matrix{width:100%;border-collapse:collapse;background:#fff;font-size:clamp(14px,.95vw,19px)}
+    .matrix th,.matrix td{border:1px solid var(--ink);padding:1vh .65vw;text-align:center;font-weight:400}
+    .matrix th:first-child,.matrix td:first-child{text-align:left;white-space:nowrap}
+    .matrix thead th{background:var(--soft)}
+    .matrix tr.ours td{border-top:2px solid var(--accent);border-bottom:2px solid var(--accent);font-weight:600;background:var(--accent-soft)}
+    .cap{display:inline-block;min-width:4.1em;padding:.28vh .42vw;border:1px solid var(--line);background:#fff;line-height:1.25}
+    .cap.main{border-color:var(--ink);color:var(--ink)}
+    .cap.related{background:var(--soft);color:#4f4f4f}
+    .cap.link{border-style:dashed;color:var(--muted)}
+    .legend{font-size:clamp(12px,.85vw,17px);color:var(--muted);margin-top:1.2vh}
+    .needs{width:100%;display:grid;grid-template-columns:repeat(5,1fr);gap:1vw}
+    .need{border-top:2px solid var(--ink);padding:2vh .8vw;font-size:clamp(17px,1.2vw,24px);line-height:1.42;background:rgba(255,255,255,.5)}
+    .need small{display:block;color:var(--muted);font-size:.72em;margin-top:.7vh;line-height:1.4}
+    .closing{align-items:center;justify-content:center;text-align:center;flex-direction:column}
+    .closing .mainline{font-size:clamp(27px,2.6vw,50px);line-height:1.35;max-width:72vw}
+    .closing .ask{font-size:clamp(17px,1.35vw,27px);color:var(--muted);line-height:1.65;max-width:72vw;margin-top:3vh}
+    .close-grid{display:grid;grid-template-columns:1fr 1fr 1.12fr;gap:1.3vw;width:100%;align-items:stretch;text-align:left}
+    .close-block{border-top:2px solid var(--ink);padding:1.4vh 1vw;background:rgba(255,255,255,.64)}
+    .close-block:last-child{border-top-color:var(--accent)}
+    .close-block h2{font-size:clamp(19px,1.5vw,29px);margin-bottom:1vh}
+    .close-block p{font-size:clamp(16px,1.13vw,22px);color:var(--muted);line-height:1.62}
+    .close-ask{margin-top:2.2vh;padding:1.4vh 1.3vw;border-left:3px solid var(--accent);background:rgba(255,255,255,.58);font-size:clamp(19px,1.4vw,28px);line-height:1.52;text-align:left;max-width:100%}
+    .context-strip{display:grid;grid-template-columns:1fr 1.2fr 1.15fr;gap:1vw;width:100%;margin-top:1.4vh}
+    .context-item{padding:1vh .9vw;border-top:1px solid var(--ink);background:rgba(255,255,255,.56);font-size:clamp(15px,1.02vw,20px);line-height:1.42}
+    .context-item b{display:block;margin-bottom:.3vh;color:var(--accent);font-weight:500}
+    .context-item small{display:block;color:var(--muted);font-size:.76em;line-height:1.4}
+    .cover-brief{display:grid;grid-template-columns:1fr 1.35fr 1.2fr;gap:1.2vw;width:min(78vw,1500px);margin-top:3.2vh;text-align:left}
+    .cover-brief div{padding:1.15vh 1vw;border-top:2px solid var(--ink);background:rgba(255,255,255,.58);font-size:clamp(17px,1.18vw,23px);line-height:1.45}
+    .cover-brief div:last-child{border-top-color:var(--accent)}
+    .cover-brief b{display:block;margin-bottom:.45vh;color:var(--accent);font-weight:500;font-size:.78em;letter-spacing:.08em}
+    .cover-brief small{display:block;margin-top:.35vh;color:var(--muted);font-size:.72em;line-height:1.4}
+    .controls{position:fixed;right:1.2vw;bottom:1.2vh;z-index:9;display:flex;gap:.5vw;opacity:.28;transition:opacity .2s}
+    .controls:hover{opacity:1}
+    .controls button{width:34px;height:34px;border:1px solid #777;background:#f6f5f1;color:#171717;cursor:pointer}
+    .progress{position:fixed;left:0;bottom:0;height:3px;background:#171717;z-index:8;transition:width .3s ease}
+    .notes{position:fixed;left:2vw;right:2vw;bottom:2.7vh;z-index:12;background:rgba(20,20,20,.94);color:#fff;padding:1.2vh 1.2vw;font-family:var(--serif);font-size:clamp(14px,1vw,18px);line-height:1.55;display:none;box-shadow:0 10px 40px rgba(0,0,0,.28)}
+    .notes.visible{display:block}
+    .note{display:none}.note.active{display:block}
+    .hint{position:fixed;left:1.2vw;bottom:1.25vh;z-index:9;color:#777;font-size:12px;opacity:.55}
+    .fragment{opacity:0;transform:translateY(18px);filter:blur(2px);pointer-events:none;transition:opacity .42s ease,transform .42s cubic-bezier(.2,.75,.25,1),filter .42s ease}
+    .fragment.revealed{opacity:1;transform:none;filter:none;pointer-events:auto}
+    .fragment[data-effect="line"]{clip-path:inset(0 100% 0 0);opacity:1;transform:none;filter:none;transition:clip-path .55s ease}
+    .fragment[data-effect="line"].revealed{clip-path:inset(0 0 0 0)}
+    .pulse{animation:pulse 1.15s ease both}@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(139,30,30,.22)}100%{box-shadow:0 0 0 14px rgba(139,30,30,0)}}
+    @media(max-aspect-ratio:4/3){.slide{padding-left:4.7vw;padding-right:4.7vw}.flow,.cards,.needs{gap:.8vw}.transform{grid-template-columns:.75fr 1.4fr .9fr}}
+    @media print{html,body{overflow:visible;background:#fff}.deck{height:auto}.slide{position:relative;width:100vw;height:56.25vw;page-break-after:always;opacity:1;visibility:visible;transform:none}.fragment{opacity:1!important;transform:none!important;filter:none!important;clip-path:none!important}.controls,.progress,.hint,.notes{display:none!important}}
+  </style>
+</head>
+<body>
+  <main class="deck" aria-label="赛题A五分钟路演">
+    <section class="slide active" data-title="封面" data-mark="A" data-static><header><div class="kicker">赛题A｜投标人自报业绩核验</div><h1>让每一条判断<br>都有依据、有边界、可复核</h1><p class="lead">从分散搜索到完整复核任务</p></header><div class="body closing"><div class="eyebrow fragment" data-start>投标人自报历史业绩核验</div><p class="mainline fragment">业绩证链</p><p class="ask fragment">AI辅助寻找和阅读，逻辑守住核验边界，工作人员保留最终确认权</p><div class="cover-brief"><div><b>我们面对的任务</b>175条企业自报历史项目<small>需要逐条寻找外部材料并交人工复核</small></div><div><b>我们的处理方式</b>AI找与读＋项目、主体、证据阶段三层核对<small>证据不足时说明缺口，不自动判假</small></div><div><b>工作人员最终拿到</b>有原文、有理由、有疑点的复核任务<small>最终认定权仍然保留给有权工作人员</small></div></div></div><footer class="footer"><span>五分钟路演</span><span class="page-no">00</span></footer></section>
+
+    <section class="slide" data-title="人工流程" data-mark="01"><header><div class="kicker">01｜问题背景</div><h1>一条业绩，人工怎么核？</h1><p class="lead">从公司名和项目名开始，逐步找到材料、完成判断并留下记录</p></header><div class="body" style="flex-direction:column;justify-content:center"><div class="flow"><div class="step fragment" data-group="input"><div class="num">01</div><div class="verb">拿</div><div class="desc">公司名称<br>自报项目</div></div><div class="step fragment" data-group="search"><div class="num">02</div><div class="verb">搜</div><div class="desc">组合关键词<br>查公告和材料</div></div><div class="step fragment" data-group="search"><div class="num">03</div><div class="verb">看</div><div class="desc">阅读网页正文<br>逐个打开附件</div></div><div class="step fragment" data-group="judge"><div class="num">04</div><div class="verb">判</div><div class="desc">核项目、核主体<br>区分证据阶段</div></div><div class="step fragment" data-group="judge"><div class="num">05</div><div class="verb">记</div><div class="desc">保存原文来源<br>写明疑点和缺口</div></div></div><div class="factbar fragment" data-group="close"><div class="fact">项目关系<small>是不是同一个项目</small></div><div class="fact">主体关系<small>是不是同一家企业</small></div><div class="fact">证据阶段<small>中标、合同还是验收</small></div></div><p class="conclusion fragment" data-group="close"><strong>175条业绩</strong>，就要逐条走完这套流程。</p></div><footer class="footer"><span>问题背景</span><span class="page-no">01</span></footer></section>
+
+    <section class="slide" data-title="重复劳动" data-mark="02"><header><div class="kicker">02｜核心痛点</div><h1>专业判断，困在重复里</h1><p class="lead">真正开始判断之前，还要先完成大量<strong>低价值、高重复</strong>的准备工作</p></header><div class="body" style="flex-direction:column"><div class="split"><div class="repeat"><div class="fragment" data-group="search">想搜索词<small>公司简称、项目别名</small></div><div class="fragment" data-group="search">换网站找<small>不同平台来回切换</small></div><div class="fragment" data-group="search">从结果里挑<small>排除无关和重复网页</small></div><div class="fragment" data-group="read">打开网页和附件<small>正文、PDF、扫描材料</small></div><div class="fragment" data-group="read">从长文里找信息<small>项目、企业、日期、阶段</small></div><div class="fragment" data-group="read">记录链接与疑点<small>为后续复核留下依据</small></div></div><div class="judgement fragment"><div class="big">人工判断</div><p>证据够不够？<br>哪里存疑？<br>下一步怎么办？</p></div></div><p class="slogan fragment">让技术承担重复，<strong style="color:var(--accent);font-weight:500">让专业价值回归判断。</strong></p></div><footer class="footer"><span>核心痛点</span><span class="page-no">02</span></footer></section>
+
+    <section class="slide" data-title="现有工具" data-mark="03"><header><div class="kicker">03｜市场现状</div><h1>工具不少，流程仍靠人串</h1><p class="lead">代表性产品分别解决核验过程中的一个动作，但<strong>没有自然形成同一条任务</strong></p></header><div class="body" style="flex-direction:column"><div class="cards"><article class="card fragment"><div class="index">01｜找公告</div><h2>候选材料在哪里？</h2><div class="brand">剑鱼标讯</div><p>根据公司名或项目名，搜索相关招中标公告。</p><p class="result">得到：候选网页<br><small>还要判断项目名称、编号和包组能否对应</small></p></article><article class="card fragment"><div class="index">02｜核企业</div><h2>是不是这家公司？</h2><div class="brand">企查查</div><p>查询企业全称、曾用名和关联关系。</p><p class="result">得到：企业信息<br><small>还要与公告中的供应商、联合体和历史名称对齐</small></p></article><article class="card fragment"><div class="index">03｜查标书</div><h2>已有文件有没有问题？</h2><div class="brand">标桥AI</div><p>检查已有招投标文件中的缺项、响应和异常。</p><p class="result">得到：文件检查结果<br><small>前提是工作人员已经拿到并上传相关文件</small></p></article></div><div class="factbar fragment"><div class="fact">候选网页<small>材料入口</small></div><div class="fact">企业信息<small>主体入口</small></div><div class="fact">文件检查结果<small>文档入口</small></div></div><p class="bridge fragment"><strong>流程断点：</strong>三份结果仍然是分开的，工作人员还要反复复制、切换、比对和整理，才能形成一条可复核记录。<small>完整核验还必须同时回答：是不是同一项目、是不是同一主体、证据到了哪个阶段、为什么得出当前结论。</small></p></div><footer class="footer"><span>市场现状</span><span class="page-no">03</span></footer></section>
+
+    <section class="slide" data-title="核验逻辑" data-mark="04"><header><div class="kicker">04｜解决方案</div><h1>一句自报，变成一条可复核记录</h1><p class="lead">系统不是搜到网页就结束，而是继续完成<strong>核对、解释和人工交接</strong></p></header><div class="body" style="flex-direction:column"><div class="transform"><div class="panel fragment"><div class="panel-title">输入｜企业自报</div><p class="claim">投标公司<br>＋<br>自报项目</p><p class="result">只有一句声明<br>没有现成结论</p></div><div class="panel fragment"><div class="panel-title">处理｜核验过程</div><div class="chain"><span>找材料</span><span>读原文</span><span>对项目</span><span>核企业</span><span>标疑点</span></div></div><div class="panel fragment"><div class="panel-title">输出｜复核任务</div><div class="outputs"><span>当前结论</span><span>原文依据</span><span>信息来源</span><span>缺少什么</span><span>下一步处理</span></div></div></div><div class="logic-extra fragment"><div><b>项目层</b><br>名称、编号、包组是否一致</div><div><b>主体层</b><br>全称、曾用名、联合体是否对应</div><div><b>证据层</b><br>中标、合同、验收分别证明什么</div></div><div class="stage-strip fragment"><div class="stage-item"><b>中标公告</b>证明被选中，只作为进一步核查线索</div><div class="stage-item"><b>合同材料</b>支持曾经开展，但不能单独证明完成</div><div class="stage-item"><b>验收／履约</b>支持已经完成，仍由工作人员最终确认</div></div><div class="principle fragment"><div>AI负责找、读和解释；确定性逻辑守住项目、主体和证据阶段的边界。</div><div>证据不够，就说明缺口并转人工，而不是自动判假。</div></div></div><footer class="footer"><span>解决方案</span><span class="page-no">04</span></footer></section>
+
+    <section class="slide" data-title="平台演示" data-mark="05"><header><div class="kicker">05｜平台演示</div><h1>用一条记录，证明整条链路</h1><p class="lead">平台负责证明我们真的做出来了：<strong>每条结论都能回到原文</strong></p></header><div class="body" style="flex-direction:column"><div class="demo-frame"><div class="demo-col fragment"><div class="demo-label">01｜输入声明</div><p class="demo-main">投标公司<br>某科技有限公司<br><br>自报项目<br>某政务服务平台建设项目</p></div><div class="demo-col fragment"><div class="demo-label">02｜系统保留</div><p class="demo-main">候选材料与来源<br>关键原文引句<br>项目与企业对应关系<br>证据所在阶段<br>缺失材料与疑点</p></div><div class="demo-col fragment"><div class="demo-label">03｜当前结论</div><span class="status">支持曾开展</span><p class="demo-main">现有材料只到合同阶段<br><br>尚不能证明已经完成<br>仍需验收材料</p></div></div><div class="factbar fragment"><div class="fact">合同能够支持<small>存在明确履约关系、可支持曾开展</small></div><div class="fact">合同不能代替<small>验收或履约完成材料</small></div><div class="fact">系统必须说明<small>为什么停在当前阶段</small></div></div></div><footer class="footer"><span>约一分钟稳定案例</span><span class="page-no">05</span></footer></section>
+
+    <section class="slide" data-title="横向对比" data-mark="06"><header><div class="kicker">06｜差异化</div><h1>找到材料，只是核验的开始</h1><p class="lead">不比较宣传口号，只比较一条自报业绩<strong>能不能走到人工复核</strong></p></header><div class="body" style="flex-direction:column;justify-content:center"><div class="eyebrow fragment">公开能力横向比较｜以本核验场景为边界</div><table class="matrix fragment" data-effect="line"><thead><tr><th>代表产品</th><th>找公开公告</th><th>核企业关系</th><th>读取关键原文</th><th>判断证据阶段</th><th>说明理由与缺口</th><th>形成复核任务</th></tr></thead><tbody><tr><td>剑鱼标讯</td><td><span class="cap main">主要能力</span></td><td><span class="cap related">相关能力</span></td><td><span class="cap related">相关能力</span></td><td><span class="cap link">仍需衔接</span></td><td><span class="cap link">仍需衔接</span></td><td><span class="cap link">仍需衔接</span></td></tr><tr><td>企查查</td><td><span class="cap related">相关能力</span></td><td><span class="cap main">主要能力</span></td><td><span class="cap related">相关能力</span></td><td><span class="cap link">仍需衔接</span></td><td><span class="cap link">仍需衔接</span></td><td><span class="cap link">仍需衔接</span></td></tr><tr><td>标桥AI</td><td><span class="cap link">非主要场景</span></td><td><span class="cap related">相关能力</span></td><td><span class="cap main">主要能力</span></td><td><span class="cap related">面向已有文件</span></td><td><span class="cap related">检查结果</span></td><td><span class="cap link">仍需衔接</span></td></tr><tr class="ours"><td>我们的平台</td><td>流程组成</td><td>流程组成</td><td>流程组成</td><td>核心能力</td><td>核心能力</td><td>核心输出</td></tr></tbody></table><p class="legend fragment">“主要能力”表示该产品公开定位中的重点；“相关能力”表示公开资料中有所涉及；“仍需衔接”表示在本核验场景中仍要依靠人工或其他工具继续处理。<br>注：公开资料未说明，不等于产品绝对没有该能力。</p><div class="factbar fragment"><div class="fact">单点工具<small>交付一段能力或一份结果</small></div><div class="fact">我们的平台<small>把分散结果组织成连续复核流程</small></div></div><p class="conclusion fragment">优势不在多一个功能，而在<strong>把反复人工拼接变成一条连续流程。</strong></p></div><footer class="footer"><span>差异化</span><span class="page-no">06</span></footer></section>
+
+    <section class="slide" data-title="落地条件" data-mark="07"><header><div class="kicker">07｜成熟与落地</div><h1>从原型走向正式应用，还需要什么？</h1><p class="lead">以下是根据公开资料归纳的正式建设条件，不代表已获主办方承诺</p></header><div class="body" style="flex-direction:column;justify-content:center"><div class="needs"><div class="need fragment" data-group="id">企业信用代码<br>项目编号<small>提高主体和项目匹配确定性</small></div><div class="need fragment" data-group="material">可授权的合同<br>验收材料<small>更准确区分曾开展与已完成</small></div><div class="need fragment" data-group="material">少量人工<br>核验样本<small>才能计算真实业务准确率</small></div><div class="need fragment" data-group="deploy">稳定官方来源<br>数据接口<small>提高覆盖率、减少链接失效</small></div><div class="need fragment" data-group="deploy">权限、日志<br>安全环境<small>满足正式业务部署与追溯</small></div></div><div class="factbar fragment" data-group="close"><div class="fact">资源有限时<small>公开资料初筛＋人工复核队列</small></div><div class="fact">条件逐步具备后<small>提高覆盖率、稳定性与自动化程度</small></div></div><p class="conclusion fragment" data-group="close">增加资源，提升的是<strong>覆盖率和自动化程度</strong>，不需要推翻现有逻辑链。</p></div><footer class="footer"><span>成熟与落地</span><span class="page-no">07</span></footer></section>
+
+    <section class="slide" data-title="结尾" data-mark="08"><header><div class="kicker">结语</div><h1>信息有限，也能先把核验做得安全、清楚</h1><p class="lead">我们先建立可解释、可交接的初步流程；未来增加数据和授权，不需要推翻现有逻辑链</p></header><div class="body" style="flex-direction:column;justify-content:center"><div class="close-grid"><div class="close-block fragment"><h2>我们已经做到</h2><p>把企业自报、候选材料、原文依据、当前结论和待补信息，整理成同一条复核任务。</p></div><div class="close-block fragment"><h2>我们坚持边界</h2><p>AI不直接裁定真假；证据不到不越级；主体复杂、字段冲突或材料不足时转人工。</p></div><div class="close-block fragment"><h2>问答可以继续看</h2><p>每条结论对应哪段原文；为什么停在中标、合同或验收阶段；175条任务如何分类并进入人工队列。</p></div></div><p class="close-ask fragment">如果各位还想进一步了解，我们可以在问答环节直接展示每条结论对应的原文、系统为什么停在当前证据阶段，以及175条任务怎样进行分类和人工复核。</p></div><footer class="footer"><span>感谢各位评委</span><span class="page-no">08</span></footer></section>
+  </main>
+
+  <div class="notes" aria-live="polite">
+    <div class="note active">开场：各位评委好，我们关注的是投标评审中一个很具体的问题：企业自报的历史项目，工作人员怎样快速核实，而且每一步都能说明依据。</div>
+    <div class="note">主办方给出了175条“投标公司加自报项目”。核查人员需要拿着公司名和项目名搜索、阅读、核对证据阶段并留下记录。175条业绩，都要逐条走完这套流程。</div>
+    <div class="note">真正需要经验的是判断证据够不够、哪里存疑。但判断之前还有大量搜索、翻页、摘录和整理。我们希望让技术承担重复，让专业人员专注判断。</div>
+    <div class="note">剑鱼标讯给出候选网页，企查查给出企业信息，标桥AI给出已有文件的检查结果。它们各自有价值，但三份结果仍需工作人员手工拼成一条复核记录。</div>
+    <div class="note">我们的平台继续往后完成项目、主体和证据阶段核对。交付的不是“真或假”，而是带当前结论、原文、来源、缺口和下一步处理的复核任务。</div>
+    <div class="note">平台只演示一条稳定案例：材料只到合同，因此停在“支持曾开展”，同时提示尚不能证明完成、需要验收材料。突出系统有边界，不替人拍板。</div>
+    <div class="note">代表性产品擅长单点能力，我们围绕一条自报业绩形成完整复核任务。优势不在多一个功能，而在少一次人工拼接。</div>
+    <div class="note">为了产品成熟和正式落地，我们还需要更完整的标识、授权材料、人工样本、稳定数据来源和安全部署环境。快速带过，不展开。</div>
+    <div class="note">使用选定结尾原文，语速放慢。说完停顿，看向评委，进入问答。</div>
+  </div>
+  <div class="hint">→ / 空格：逐步出现或翻页　←：退回　F：全屏　N：讲稿</div>
+  <div class="controls"><button id="prev" aria-label="上一页">←</button><button id="next" aria-label="下一页">→</button></div>
+  <div class="progress" aria-hidden="true"></div>
+  <script>
+    const slides=[...document.querySelectorAll('.slide')], notes=[...document.querySelectorAll('.note')];
+    const progress=document.querySelector('.progress'); let index=0;
+    function currentFragments(){return [...slides[index].querySelectorAll('.fragment')]}
+    function show(next,all=false){
+      index=Math.max(0,Math.min(slides.length-1,next));
+      slides.forEach((s,i)=>s.classList.toggle('active',i===index));
+      notes.forEach((n,i)=>n.classList.toggle('active',i===index));
+      const staticSlide=slides[index].hasAttribute('data-static')||index===4;
+      currentFragments().forEach(f=>f.classList.toggle('revealed',all||staticSlide||f.hasAttribute('data-start')));
+      progress.style.width=((index+1)/slides.length*100)+'%';
+      document.title=slides[index].dataset.title+'｜赛题A路演';
+    }
+    function sameGroup(seed){const g=seed?.dataset.group;return g?currentFragments().filter(f=>f.dataset.group===g):[seed]}
+    function advance(){const next=currentFragments().find(f=>!f.classList.contains('revealed'));if(next){sameGroup(next).forEach(f=>{f.classList.add('revealed','pulse');setTimeout(()=>f.classList.remove('pulse'),1150)})}else if(index<slides.length-1)show(index+1)}
+    function retreat(){const shown=currentFragments().filter(f=>f.classList.contains('revealed')&&!f.hasAttribute('data-start'));if(shown.length){sameGroup(shown.at(-1)).forEach(f=>f.classList.remove('revealed'))}else if(index>0)show(index-1,true)}
+    function fullscreen(){if(!document.fullscreenElement)document.documentElement.requestFullscreen?.();else document.exitFullscreen?.()}
+    document.getElementById('prev').onclick=retreat;document.getElementById('next').onclick=advance;
+    document.addEventListener('keydown',e=>{if(['ArrowRight','PageDown',' ','Enter'].includes(e.key)){e.preventDefault();advance()}else if(['ArrowLeft','PageUp','Backspace'].includes(e.key)){e.preventDefault();retreat()}else if(e.key.toLowerCase()==='f')fullscreen();else if(e.key.toLowerCase()==='n')document.querySelector('.notes').classList.toggle('visible');else if(e.key==='Home')show(0);else if(e.key==='End')show(slides.length-1,true)});
+    let startX=0;document.addEventListener('touchstart',e=>startX=e.touches[0].clientX,{passive:true});document.addEventListener('touchend',e=>{const d=e.changedTouches[0].clientX-startX;if(Math.abs(d)>50)(d<0?advance():retreat())},{passive:true});show(0);
+  </script>
+</body>
+</html>
