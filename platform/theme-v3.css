@@ -58,7 +58,7 @@ body.roadshow-mode .mode-switch { background: #fffdfa !important; border-color: 
 body.roadshow-mode .mode-button.active { background: var(--v3-blue) !important; box-shadow: 0 7px 20px rgba(47,111,237,.22) !important; }
 body.roadshow-mode .qa-launch-button { color: var(--v3-blue-dark) !important; border-color: #ddb7ab !important; background: #fffdfa !important; }
 body.roadshow-mode .platform-howto { display: none !important; }
-body.roadshow-mode .dataset-context { margin: 0 0 14px !important; padding: 11px 15px !important; background: var(--v3-amber-soft) !important; border-color: #e5b66e !important; color: #6d430c !important; }
+body.roadshow-mode .dataset-context { width: 100% !important; margin: 0 auto 14px !important; padding: 11px 15px !important; background: var(--v3-amber-soft) !important; border-color: #e5b66e !important; color: #6d430c !important; }
 body.roadshow-mode .section { padding: 0 !important; }
 .roadshow-console { overflow: hidden; border-color: var(--v3-line) !important; box-shadow: var(--v3-shadow) !important; }
 .roadshow-heading { padding: 18px 22px 15px !important; background: #fffdfa; }
