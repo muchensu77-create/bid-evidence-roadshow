@@ -3,79 +3,527 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="投标业绩证据核验工作台——领导展示、判断树与工作人员演示。" />
-    <title>业绩核验工作台｜公开演示</title>
-    <link rel="stylesheet" href="./styles.css?v=public-20260816" />
+    <meta name="description" content="投标业绩证据核验工作台——核对同一项目、同一主体与证据阶段。" />
+    <title>业绩核验工作台</title>
+    <link rel="icon" type="image/png" href="./assets/evidence-verification-favicon.png" />
+    <link rel="stylesheet" href="./styles.css?v=leader-clean-20260815" />
+    <link rel="stylesheet" href="./theme-v3.css?v=20260816" />
   </head>
   <body class="leader-home">
-    <main class="main-content">
-      <section id="leader-screen" class="leader-screen" aria-labelledby="leader-screen-title">
-        <header class="leader-nav">
-          <a class="leader-brand" href="./index.html" aria-label="业绩核验工作台首页">
-            <span>证</span>
-            <div><strong>业绩核验工作台</strong><small>DEMO_ONLY · 公开虚构案例</small></div>
-          </a>
-          <nav aria-label="演示页面入口">
-            <a href="../slides.html">五分钟路演</a>
-            <a href="./logic-sandbox.html">问答判断树</a>
-            <a href="./staff-shell.html">工作人员端</a>
-          </nav>
-        </header>
-
-        <div class="leader-hero">
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="brand">
+          <div class="brand-mark"><img src="./assets/evidence-verification-logo.png" alt="" /></div>
           <div>
-            <h1 id="leader-screen-title">一句企业自报，变成一条可复核记录</h1>
-            <p>系统把分散材料整理成带来源、理由和下一步的复核任务。</p>
+            <div class="brand-title">业绩核验工作台</div>
+            <div class="brand-subtitle">投标业绩真实性初筛与证据核验</div>
           </div>
         </div>
 
-        <section id="leader-demo-board" class="leader-demo-board" data-demo-state="ready" aria-label="企业自报转化为复核任务的演示">
-          <article class="leader-input-card">
-            <div class="leader-card-label">企业自报</div>
-            <dl>
-              <div><dt>投标公司</dt><dd>广东远景数据有限公司</dd></div>
-              <div><dt>自报项目</dt><dd>政务数据治理服务项目</dd></div>
-            </dl>
-            <p>这只是一句虚构声明，还不是事实结论。</p>
-          </article>
+        <div class="local-badge">
+          <span class="pulse"></span>
+          本地运行 · 数据不自动上传
+        </div>
 
-          <div class="leader-process">
-            <div class="leader-process-title">
-              <div><span>声明证据轨道</span><strong id="leader-demo-status">等待演示</strong></div>
-              <button id="leader-run-demo" class="button primary" type="button">演示一条记录</button>
-            </div>
-            <ol>
-              <li data-leader-step="1"><strong>找到候选</strong></li>
-              <li data-leader-step="2"><strong>读出原文</strong></li>
-              <li data-leader-step="3"><strong>项目一致</strong></li>
-              <li data-leader-step="4"><strong>主体冲突</strong></li>
-              <li data-leader-step="5"><strong>转人工</strong></li>
-            </ol>
-            <div class="leader-source-strip">
-              <span>原文依据 · 中标结果公告</span>
-              <blockquote>“项目编号相同，但供应商主体编号不同。”</blockquote>
-              <div><small>虚构政务采购平台 · DEMO_ONLY</small><a href="./logic-sandbox.html">查看完整判断逻辑 →</a></div>
+        <nav class="nav-list" aria-label="工作台导航">
+          <button class="nav-item active" data-section="workspace">
+            <span>01</span> 批量核验
+          </button>
+          <button class="nav-item" data-section="data">
+            <span>02</span> 数据质量
+          </button>
+          <button class="nav-item" data-section="rules">
+            <span>03</span> 核验口径
+          </button>
+          <button class="nav-item" data-section="validation">
+            <span>04</span> 产品研发与数据说明
+          </button>
+        </nav>
+
+        <div class="boundary-card">
+          <div class="eyebrow">系统边界</div>
+          <p>不把“网上没搜到”判成虚假，也不把“中标”写成“已经履约”。</p>
+        </div>
+
+        <div class="sidebar-footer">
+          <span>顺德区政数局赛题 A</span>
+          <span>黑客松 MVP · v0.3.0</span>
+        </div>
+      </aside>
+
+      <main class="main-content">
+        <section id="leader-screen" class="leader-screen" aria-labelledby="leader-screen-title">
+          <header class="leader-nav">
+            <a class="leader-brand" href="./index.html" aria-label="业绩核验工作台首页">
+              <span><img src="./assets/evidence-verification-logo.png" alt="" /></span>
+              <div><strong>业绩核验工作台</strong><small>DEMO_ONLY · 虚构案例</small></div>
+            </a>
+            <nav aria-label="深度功能入口">
+              <a href="./logic-sandbox.html">问答判断树</a>
+              <a href="./staff-shell.html">工作人员入口</a>
+            </nav>
+          </header>
+
+          <div class="leader-hero">
+            <div>
+              <h1 id="leader-screen-title">一句企业自报，变成一条可复核记录</h1>
+              <p>系统把分散材料整理成带来源、理由和下一步的复核任务。</p>
             </div>
           </div>
 
-          <article class="leader-output-card">
-            <div class="leader-card-label">复核任务</div>
-            <div class="leader-result-state"><span>当前结论</span><strong>转人工复核</strong></div>
-            <dl>
-              <div><dt>判断理由</dt><dd>项目编号一致，企业信用代码不同</dd></div>
-              <div><dt>信息来源</dt><dd>中标结果公告</dd></div>
-              <div><dt>证据阶段</dt><dd>当前仅到中标线索</dd></div>
-              <div><dt>下一步</dt><dd>核对更名或主体桥接材料</dd></div>
-            </dl>
-          </article>
+          <section id="leader-demo-board" class="leader-demo-board" data-demo-state="ready" aria-label="企业自报转化为复核任务的演示">
+            <article class="leader-input-card">
+              <div class="leader-card-label">企业自报</div>
+              <dl>
+                <div><dt>投标公司</dt><dd>广东远景数据有限公司</dd></div>
+                <div><dt>自报项目</dt><dd>政务数据治理服务项目</dd></div>
+              </dl>
+              <p>这只是一句声明，还不是事实结论。</p>
+            </article>
+
+            <div class="leader-process">
+              <div class="leader-process-title">
+                <div><span>声明证据轨道</span><strong id="leader-demo-status">等待演示</strong></div>
+                <button id="leader-run-demo" class="button primary" type="button">第一步：找候选材料</button>
+              </div>
+              <ol>
+                <li data-leader-step="1"><strong>找到候选</strong></li>
+                <li data-leader-step="2"><strong>读出原文</strong></li>
+                <li data-leader-step="3"><strong>项目一致</strong></li>
+                <li data-leader-step="4"><strong>主体冲突</strong></li>
+                <li data-leader-step="5"><strong>转人工</strong></li>
+              </ol>
+              <div class="leader-source-strip">
+                <span>原文依据 · 中标结果公告</span>
+                <blockquote>“项目编号相同，但供应商主体编号不同。”</blockquote>
+                <div><small>虚构政务采购平台 · DEMO_ONLY</small><a href="./logic-sandbox.html">查看完整依据 →</a></div>
+              </div>
+            </div>
+
+            <article class="leader-output-card">
+              <div class="leader-card-label">复核任务</div>
+              <div class="leader-result-state"><span>当前结论</span><strong>转人工复核</strong></div>
+              <dl>
+                <div><dt>判断理由</dt><dd>项目编号一致，企业信用代码不同</dd></div>
+                <div><dt>信息来源</dt><dd>中标结果公告</dd></div>
+                <div><dt>证据阶段</dt><dd>当前仅到中标线索</dd></div>
+                <div><dt>下一步</dt><dd>核对更名或主体桥接材料</dd></div>
+              </dl>
+            </article>
+          </section>
+
+          <div class="leader-principle-band" aria-label="AI、逻辑和人工的分工与系统边界">
+            <p><strong>AI</strong> 找和读；<strong>逻辑</strong> 核项目、主体与证据阶段；<strong>工作人员</strong> 最终确认。</p>
+            <p>没搜到 ≠ 虚假 · 中标 ≠ 履约 · 合同 ≠ 验收</p>
+          </div>
         </section>
 
-        <div class="leader-principle-band" aria-label="AI、逻辑和人工的分工与系统边界">
-          <p><strong>AI</strong> 找和读；<strong>逻辑</strong> 核项目、主体与证据阶段；<strong>工作人员</strong> 最终确认。</p>
-          <p>没搜到 ≠ 虚假 · 中标 ≠ 履约 · 合同 ≠ 验收</p>
+        <header class="topbar">
+          <div>
+            <div class="eyebrow">一句企业自报 → 一条可复核记录</div>
+            <h1>业绩核验工作台</h1>
+            <p class="lede">把投标公司和自报项目，变成带原文、带理由、带疑点、能交给工作人员复核的任务。</p>
+          </div>
+          <div class="topbar-controls">
+            <div class="mode-switch" role="group" aria-label="切换展示模式">
+              <button id="roadshow-mode-btn" class="mode-button active" type="button" aria-pressed="true">① 一分钟演示</button>
+              <button id="workbench-mode-btn" class="mode-button" type="button" aria-pressed="false">② 175 条队列</button>
+            </div>
+            <button id="qa-toolbox-btn" class="qa-launch-button" type="button">③ 判断树与问答</button>
+            <div class="top-actions">
+              <button id="load-official-catalog-btn" class="button catalog">载入官网候选目录（研究版）</button>
+              <button id="load-demo-btn" class="button ghost">重载虚构演示</button>
+              <button id="export-json-btn" class="button secondary" disabled>导出当前筛选 JSON</button>
+              <button id="export-btn" class="button primary" disabled>导出当前筛选核验表</button>
+            </div>
+          </div>
+        </header>
+
+        <div class="platform-howto" aria-label="平台使用说明">
+          <strong>第一次打开，按这三个入口使用：</strong>
+          <span><b>主讲</b> 点 01—04，走完一条业绩</span>
+          <span><b>批量</b> 切到 175 条队列，看任务分流</span>
+          <span><b>问答</b> 打开判断树，看每个停止条件</span>
         </div>
-      </section>
-    </main>
-    <script src="./leader.js?v=public-20260816" defer></script>
+
+        <div id="dataset-context" class="dataset-context" data-mode="empty" role="status" aria-live="polite">
+          <strong>当前批次 · 尚未导入</strong>
+          <span>导入真实数据或载入虚构演示后，这里会持续显示批次来源。</span>
+        </div>
+
+        <section id="workspace-section" class="section active-section">
+          <section id="roadshow-console" class="roadshow-console" aria-labelledby="roadshow-title">
+            <div class="roadshow-heading">
+              <div>
+                <div class="eyebrow">一分钟平台演示</div>
+                <h2 id="roadshow-title">一句自报，变成一条可复核记录</h2>
+                <p>只演示一条虚构案例的“输入—处理—输出”；完整判断树和 175 条队列留在问答环节展开。</p>
+              </div>
+              <div class="demo-focus-badge">
+                <span>DEMO_ONLY · 虚构案例</span>
+                <strong>默认演示：项目对得上，企业主体有冲突</strong>
+              </div>
+            </div>
+
+            <ol id="roadshow-steps" class="roadshow-steps" aria-label="四个演示画面">
+              <li><button class="roadshow-step active" type="button" data-roadshow-step="0" aria-current="step"><span>01 · 输入</span><strong>企业自报</strong><small>公司＋历史项目</small></button></li>
+              <li><button class="roadshow-step" type="button" data-roadshow-step="1"><span>02 · 依据</span><strong>候选材料</strong><small>关键原文＋来源</small></button></li>
+              <li><button class="roadshow-step" type="button" data-roadshow-step="2"><span>03 · 检查</span><strong>逐层对上</strong><small>项目＋企业＋材料</small></button></li>
+              <li><button class="roadshow-step" type="button" data-roadshow-step="3"><span>04 · 输出</span><strong>复核任务</strong><small>结论＋疑点＋下一步</small></button></li>
+            </ol>
+
+            <div class="roadshow-stage-shell">
+              <div id="roadshow-stage" class="roadshow-stage" aria-live="polite" tabindex="-1"></div>
+              <aside class="roadshow-controls" aria-label="路演步骤控制">
+                <div>
+                  <span id="roadshow-progress-label">画面 1 / 4</span>
+                  <strong id="roadshow-progress-title">工作人员拿到的只是一句声明</strong>
+                  <p id="roadshow-progress-note">先把公司和自报项目变成一条待核查任务。</p>
+                </div>
+                <div class="roadshow-control-buttons">
+                  <button id="roadshow-prev" class="button ghost" type="button" disabled>上一步</button>
+                  <button id="roadshow-next" class="button primary" type="button">开始核验：查看候选依据</button>
+                </div>
+                <small class="keyboard-hint">现场演示可按 ← → 切换四个画面</small>
+                <button id="open-active-detail" class="text-button" type="button">打开这条记录的完整证据</button>
+                <button id="open-qa-from-demo" class="text-button muted-link" type="button">问答时展开完整判断树</button>
+              </aside>
+            </div>
+
+            <div class="roadshow-boundary">
+              <strong>证据不够，就说明缺什么并转人工，而不是自动判假。</strong>
+              <span>AI 把材料找出来、读明白；确定性逻辑把项目、企业和材料逐层对上；工作人员保留最终确认权。</span>
+            </div>
+          </section>
+
+          <div id="staff-workbench" class="staff-workbench" hidden>
+          <div class="privacy-note">
+            <div class="privacy-icon">✓</div>
+            <div>
+              <strong>证据核验助理，不是“造假裁判”</strong>
+              <span>所有非灰色结论必须附来源；复杂关系统一转人工。</span>
+            </div>
+          </div>
+
+          <div id="official-catalog-banner" class="official-catalog-banner" hidden>
+            <div>
+              <div class="eyebrow">175 条官网来源目录 · 研究版</div>
+              <strong id="official-catalog-summary-title">175 条均有查询记录；57 条为“可靠官方候选目录覆盖”，不是事实支持</strong>
+              <span id="official-catalog-summary-detail">349 个去重官网链接已编目；175 条最终仍全部需有权人员确认。中标材料不单独证明已开展或已完成。</span>
+            </div>
+            <div class="catalog-banner-actions">
+              <span id="official-catalog-load-state">尚未载入工作台</span>
+              <a href="../research/official_source_catalog_175/reports/report.html" target="_blank" rel="noopener noreferrer">打开独立 HTML 目录 ↗</a>
+            </div>
+          </div>
+
+          <div class="import-grid">
+            <article class="import-card">
+              <div class="step-number">1</div>
+              <div class="import-copy">
+                <div class="eyebrow">待核查声明</div>
+                <h2>导入投标人业绩</h2>
+                <p>支持 UTF-8 JSON、JSONL，以及带表头的 CSV。</p>
+                <div class="file-status" id="claims-file-status">尚未导入</div>
+              </div>
+              <label class="button secondary file-button">
+                选择文件
+                <input id="claims-file" type="file" accept=".json,.jsonl,.ndjson,.csv,text/csv,application/json" />
+              </label>
+            </article>
+
+            <article class="import-card">
+              <div class="step-number">2</div>
+              <div class="import-copy">
+                <div class="eyebrow">候选公开记录</div>
+                <h2>导入公告数据</h2>
+                <p>约 4,000 条记录从这里接入；第三方数据默认只作候选目录。</p>
+                <div class="file-status" id="notices-file-status">尚未导入</div>
+              </div>
+              <label class="button secondary file-button">
+                选择文件
+                <input id="notices-file" type="file" accept=".json,.jsonl,.ndjson,.csv,text/csv,application/json" />
+              </label>
+            </article>
+
+            <article class="run-card">
+              <div>
+                <div class="eyebrow">规则初筛</div>
+                <h2>生成候选与证据状态</h2>
+                <p>项目匹配、企业主体和证据阶段分别判断。</p>
+              </div>
+              <button id="run-btn" class="button accent" disabled>开始批量核验</button>
+            </article>
+          </div>
+
+          <div id="quality-alert" class="quality-alert hidden"></div>
+
+          <div id="work-queue" class="metric-grid queue-grid" aria-label="工作人员五类任务队列">
+            <button class="metric-card queue-card completed" type="button" data-work-queue="completed">
+              <span>已完成候选</span>
+              <strong id="metric-completed">0</strong>
+              <small>事实支持＋验收；仍待人工确认</small>
+            </button>
+            <button class="metric-card queue-card conducted" type="button" data-work-queue="conducted">
+              <span>曾开展候选</span>
+              <strong id="metric-conducted">0</strong>
+              <small>事实支持＋合同；待补验收</small>
+            </button>
+            <button class="metric-card queue-card award-only" type="button" data-work-queue="award_only">
+              <span>仅中标线索</span>
+              <strong id="metric-award-only">0</strong>
+              <small>仅证明被选中，不证明开展</small>
+            </button>
+            <button class="metric-card queue-card manual" type="button" data-work-queue="manual">
+              <span>疑点待人工</span>
+              <strong id="metric-manual">0</strong>
+              <small>字段冲突、联合体或复杂主体</small>
+            </button>
+            <button class="metric-card queue-card needs-evidence" type="button" data-work-queue="needs_evidence">
+              <span>待补证</span>
+              <strong id="metric-needs-evidence">0</strong>
+              <small>候选不足或缺关键材料</small>
+            </button>
+          </div>
+
+          <section class="results-panel">
+            <div class="panel-header">
+              <div>
+                <div class="eyebrow">批量结果</div>
+                <h2>核验任务表 <span id="queue-count-label" class="count-label">0 条</span></h2>
+              </div>
+              <div class="filters">
+                <label class="search-box">
+                  <span>⌕</span>
+                  <input id="search-input" type="search" placeholder="搜索企业或项目" />
+                </label>
+                <select id="status-filter" aria-label="按状态筛选">
+                  <option value="all">全部状态</option>
+                  <option value="supported">证据支持</option>
+                  <option value="conflict">明确冲突</option>
+                  <option value="review">复杂待核</option>
+                  <option value="insufficient">证据不足</option>
+                  <option value="pending">尚未核验</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>序号</th>
+                    <th>自报业绩</th>
+                    <th>最佳候选</th>
+                    <th>同一项目</th>
+                    <th>同一主体</th>
+                    <th>材料阶段</th>
+                    <th>事实状态</th>
+                    <th>工作人员队列</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody id="results-body">
+                  <tr class="empty-row">
+                    <td colspan="9">
+                      <div class="empty-state">
+                        <div class="empty-icon">⌁</div>
+                        <strong>先导入数据，或载入虚构演示</strong>
+                        <span>真实数据不会被自动发送到任何外部服务。</span>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+          </div>
+        </section>
+
+        <section id="data-section" class="section">
+          <div class="section-heading">
+            <div class="eyebrow">Data Readiness</div>
+            <h2>数据质量体检</h2>
+            <p>数据多不等于可核查。页面中的百分比只是“字段完整度”：表示有没有填值，不是准确率，也不是真实性得分。</p>
+          </div>
+          <div id="data-quality-content" class="content-card">
+            <div class="empty-state compact">
+              <strong>尚未导入数据</strong>
+              <span>完成导入后，这里会显示缺失字段、公告类型和可核查比例。</span>
+            </div>
+          </div>
+        </section>
+
+        <section id="rules-section" class="section">
+          <div class="section-heading">
+            <div class="eyebrow">Evidence Maturity</div>
+            <h2>验收是进入“已完成候选”的最低证据门槛</h2>
+            <p>主办方已经明确本题口径，因此系统采用固定判断链，展示证据怎样逐级升级。</p>
+            <span class="stage-pill">主办方 2026-08-15 回复口径</span>
+          </div>
+          <div class="evidence-snapshot content-card">
+            <div>
+              <div class="eyebrow">固定判断顺序</div>
+              <h3>先确认同一项目和同一企业，再判断证据走到哪一步</h3>
+              <p>项目或企业关系存疑时，系统写明原因并交给人工；不会跳过事实核验直接说“已完成”。</p>
+            </div>
+            <span class="stage-pill">AI 辅助 · 规则兜底 · 人工定案</span>
+          </div>
+
+          <div class="invariant-banner">
+            <strong>最终完成门槛固定为“验收”</strong>
+            <span>合同仍然有价值：它只能支持“曾开展过”，不能升级成“已经完成”。</span>
+          </div>
+
+          <div class="rule-comparison-grid">
+            <article class="comparison-card">
+              <div class="comparison-head"><span>第一层</span><small>中标／成交</small></div>
+              <div class="rule-formula">中标公告 <span>→</span> <strong>仅证明被选中</strong></div>
+              <p>不能证明已经签合同，更不能证明已经完成项目。</p>
+            </article>
+            <article class="comparison-card">
+              <div class="comparison-head"><span>第二层</span><small>合同</small></div>
+              <div class="rule-formula">合同材料 <span>→</span> <strong>可支持“曾开展过”</strong></div>
+              <p>已经与项目建立合同关系，但仍不能证明履约完毕。</p>
+            </article>
+            <article class="comparison-card active">
+              <div class="comparison-head"><span>第三层</span><small>验收</small></div>
+              <div class="rule-formula">验收材料 <span>→</span> <strong>进入“已经完成”候选</strong></div>
+              <p>达到主办方确认的最低完成门槛，仍由有权人员作最终确认。</p>
+            </article>
+          </div>
+
+          <div class="rule-boundary content-card">
+            <strong>遇到疑点怎么办？</strong>
+            <p>名称不一致、联合体、企业更名、只有中标公告或公开渠道没有验收材料时，系统写清疑点和缺失材料，转人工二次核查；不会自动判虚假，也不会压掉该条声明。</p>
+          </div>
+        </section>
+
+        <section id="validation-section" class="section">
+          <div class="section-heading">
+            <div class="eyebrow">Product &amp; Data Notes</div>
+            <h2>产品研发与数据说明</h2>
+            <p>这里解释产品怎样被测试、规则怎样被抽样、数据怎样被清洗；不是 175 条业绩的官网证据库。</p>
+          </div>
+
+          <div class="source-library-alert">
+            <div>
+              <strong>官网来源目录已完成本轮 175 条查询，但仍不等于事实结论</strong>
+              <span>57 条可靠官方候选目录覆盖、349 个去重官网链接，均用于加速人工回看；175 条仍全部需有权人员确认。</span>
+            </div>
+            <a href="./reports.html#official-source-library">查看目录说明 ↗</a>
+          </div>
+
+          <div class="validation-grid">
+            <a class="validation-card" href="./reports.html#engine-tests" target="_blank" rel="noopener noreferrer">
+              <span class="validation-number">263</span>
+              <strong>引擎断言</strong>
+              <p>证明引擎边界行为可回归；不等于 175 条业绩已被证实。</p>
+              <small>打开易读说明 ↗</small>
+            </a>
+            <a class="validation-card" href="./reports.html#import-tests" target="_blank" rel="noopener noreferrer">
+              <span class="validation-number">41</span>
+              <strong>导入测试</strong>
+              <p>证明多格式数据能稳定接入；不保证源数据真实或完整。</p>
+              <small>打开易读说明 ↗</small>
+            </a>
+            <a class="validation-card" href="./reports.html#benchmark" target="_blank" rel="noopener noreferrer">
+              <span class="validation-number">700,000</span>
+              <strong>次候选比较</strong>
+              <p>175 × 4,000 次本机纯内存基准约 3.0 秒；不是端到端处理承诺。</p>
+              <small>打开易读说明 ↗</small>
+            </a>
+            <a class="validation-card" href="./reports.html#rule-sample" target="_blank" rel="noopener noreferrer">
+              <span class="validation-number">10 / 10</span>
+              <strong>样本要求合同</strong>
+              <p>目的抽样显示规则存在差异；不代表顺德全区项目的统计分布。</p>
+              <small>打开易读说明 ↗</small>
+            </a>
+            <a class="validation-card" href="./reports.html#evidence-audit" target="_blank" rel="noopener noreferrer">
+              <span class="validation-number">12</span>
+              <strong>条公开证据审计</strong>
+              <p>证明公开检索与证据分层方法可行；不是 175 条的全量核验。</p>
+              <small>打开易读说明 ↗</small>
+            </a>
+            <a class="validation-card" href="./reports.html#purchased-data" target="_blank" rel="noopener noreferrer">
+              <span class="validation-number">3,776</span>
+              <strong>条商购公告清洗记录</strong>
+              <p>证明候选库的覆盖边界；第三方记录本身不是官网证据。</p>
+              <small>打开易读说明 ↗</small>
+            </a>
+          </div>
+
+          <div class="validation-note content-card">
+            <strong>不外推、不夸大</strong>
+            <p>顺德 10 份采购文件是目的抽样，不是全区统计；12 条审计是方法样本，不是 175 条的全量结论；3,776 条商购数据是候选目录，不代替官方原文。</p>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <div id="drawer-backdrop" class="drawer-backdrop hidden"></div>
+    <aside id="detail-drawer" class="detail-drawer" aria-hidden="true" aria-labelledby="detail-drawer-title">
+      <div class="drawer-header">
+        <div>
+          <div class="eyebrow">Evidence chain</div>
+          <h2 id="detail-drawer-title">证据链与人工处置</h2>
+        </div>
+        <button id="drawer-close" class="icon-button" aria-label="关闭">×</button>
+      </div>
+      <div id="drawer-content" class="drawer-content"></div>
+    </aside>
+
+    <dialog id="qa-toolbox" class="qa-toolbox" aria-labelledby="qa-toolbox-title">
+      <div class="qa-toolbox-shell">
+        <header class="qa-toolbox-header">
+          <div>
+            <div class="eyebrow">三分钟问答展开</div>
+            <h2 id="qa-toolbox-title">评委问到哪里，就打开哪条证据链</h2>
+            <p>主讲不展开这些细节；问答时用一次点击直达原文、边界案例或 175 条队列。</p>
+          </div>
+          <button id="qa-toolbox-close" class="icon-button" type="button" aria-label="关闭问答工具箱">×</button>
+        </header>
+
+        <div class="qa-quick-actions" aria-label="问答快速入口">
+          <button class="qa-action-card active" type="button" data-qa-action="tree">
+            <span>判断逻辑</span><strong>展开完整条件树</strong><small>回答“系统到底怎么判”</small>
+          </button>
+          <button class="qa-action-card" type="button" data-qa-action="source">
+            <span>AI 依据</span><strong>看原文和抽取字段</strong><small>回答“AI 凭什么说”</small>
+          </button>
+          <button class="qa-action-card" type="button" data-qa-action="insufficient">
+            <span>安全边界</span><strong>证据不足不判假</strong><small>回答“没找到怎么办”</small>
+          </button>
+          <button class="qa-action-card" type="button" data-qa-action="complex">
+            <span>复杂关系</span><strong>主体冲突怎么截停</strong><small>回答“怎样防止误判”</small>
+          </button>
+          <button class="qa-action-card" type="button" data-qa-action="batch">
+            <span>批量工作</span><strong>打开 175 条任务队列</strong><small>回答“实际怎么批处理”</small>
+          </button>
+        </div>
+
+        <section class="strategy-tree-panel" aria-labelledby="strategy-tree-title">
+          <div class="strategy-tree-heading">
+            <div>
+              <span>问答惊喜页</span>
+              <h3 id="strategy-tree-title">一条声明会在哪个条件停下？</h3>
+            </div>
+            <p id="strategy-tree-case">当前高亮：主体冲突 → 写明疑点 → 转人工</p>
+          </div>
+          <div id="strategy-tree" class="strategy-tree"></div>
+          <div class="strategy-legend" aria-label="逻辑树图例">
+            <span><i class="ai"></i>AI 找和读</span>
+            <span><i class="rule"></i>确定性逻辑守边界</span>
+            <span><i class="human"></i>工作人员最终确认</span>
+            <strong>没搜到 ≠ 虚假；中标 ≠ 履约；合同 ≠ 验收。</strong>
+          </div>
+        </section>
+      </div>
+    </dialog>
+
+    <div id="toast" class="toast hidden" role="status"></div>
+    <script src="./engine.js?v=p0-20260815" defer></script>
+    <script src="./app.js?v=guided-20260815" defer></script>
+    <script src="./leader.js?v=leader-clean-20260815" defer></script>
   </body>
 </html>

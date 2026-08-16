@@ -4,7 +4,6 @@
   const board = document.querySelector("#leader-demo-board");
   const runButton = document.querySelector("#leader-run-demo");
   const status = document.querySelector("#leader-demo-status");
-  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const query = new URLSearchParams(window.location.search);
 
   if (query.get("view") === "workbench") {
@@ -13,53 +12,46 @@
     return;
   }
 
+  // 默认直接进入可逐页讲解的四画面路演台；精简旧首页仅保留为历史结构。
+  document.body.classList.remove("leader-home");
+  window.setTimeout(() => document.querySelector("#roadshow-mode-btn")?.click(), 250);
+  return;
+
   if (!board || !runButton || !status) return;
 
-  const messages = [
-    "找到一条可核对的候选材料",
-    "已保留原文引句和信息来源",
-    "项目编号一致，同一项目有支持",
-    "企业信用代码不同，主体关系存疑",
-    "候选材料仅到中标，已转人工复核"
+  const steps = [
+    { status: "找到一条可核对的候选材料", next: "下一步：读出关键原文" },
+    { status: "已保留原文引句和信息来源", next: "下一步：核对项目" },
+    { status: "项目编号一致，同一项目有支持", next: "下一步：核对企业" },
+    { status: "企业信用代码不同，主体关系存疑", next: "下一步：生成复核任务" },
+    { status: "仅有中标线索，主体又存疑，系统写明原因后转人工", next: "重新讲一遍" }
   ];
 
-  let timers = [];
+  let currentStep = 0;
 
-  function clearTimers() {
-    timers.forEach((timer) => window.clearTimeout(timer));
-    timers = [];
-  }
-
-  function finishDemo() {
-    board.dataset.demoState = "complete";
-    status.textContent = messages[messages.length - 1];
-    runButton.disabled = false;
-    runButton.textContent = "重新演示";
-  }
-
-  function runDemo() {
-    clearTimers();
-    board.dataset.demoState = "running";
+  function resetDemo() {
+    currentStep = 0;
+    board.dataset.demoState = "ready";
     board.dataset.activeStep = "0";
-    runButton.disabled = true;
-    runButton.textContent = "正在整理证据…";
-    status.textContent = "开始：企业声明还不是事实结论";
+    status.textContent = "开始前：现在只有企业自报，还没有事实结论";
+    runButton.textContent = "第一步：找候选材料";
+    runButton.setAttribute("aria-label", "推进到第一步：找候选材料");
+  }
 
-    if (prefersReducedMotion) {
-      board.dataset.activeStep = "5";
-      finishDemo();
+  function advanceDemo() {
+    if (currentStep >= steps.length) {
+      resetDemo();
       return;
     }
 
-    messages.forEach((message, index) => {
-      timers.push(window.setTimeout(() => {
-        board.dataset.activeStep = String(index + 1);
-        status.textContent = message;
-        if (index === messages.length - 1) finishDemo();
-      }, 360 * (index + 1)));
-    });
+    currentStep += 1;
+    board.dataset.demoState = currentStep === steps.length ? "complete" : "running";
+    board.dataset.activeStep = String(currentStep);
+    status.textContent = steps[currentStep - 1].status;
+    runButton.textContent = steps[currentStep - 1].next;
+    runButton.setAttribute("aria-label", steps[currentStep - 1].next);
   }
 
-  runButton.addEventListener("click", runDemo);
-  window.addEventListener("beforeunload", clearTimers);
+  resetDemo();
+  runButton.addEventListener("click", advanceDemo);
 })();

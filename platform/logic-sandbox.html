@@ -8,12 +8,14 @@
       content="投标业绩核验判断逻辑沙盘——用于问答环节解释系统为何停止、转人工或形成阶段候选。"
     />
     <title>判断逻辑沙盘｜业绩核验工作台</title>
+    <link rel="icon" type="image/png" href="./assets/evidence-verification-favicon.png" />
     <link rel="stylesheet" href="./logic-sandbox.css" />
+    <link rel="stylesheet" href="./theme-v3.css?v=20260816" />
   </head>
   <body>
     <header class="sandbox-header">
       <a class="back-link" href="./index.html" aria-label="返回主路演屏">
-        <span aria-hidden="true">←</span>
+        <span aria-hidden="true"><img src="./assets/evidence-verification-logo.png" alt="" /></span>
         返回主路演屏
       </a>
 
@@ -80,8 +82,37 @@
           <div class="down-arrow" aria-hidden="true"><span>↓</span></div>
 
           <div class="decision-block">
-            <button class="tree-node decision rule-node" type="button" data-node="project">
+            <button class="tree-node decision rule-node" type="button" data-node="source">
               <span class="node-number">02</span>
+              <span>
+                <span class="node-kicker">来源效力</span>
+                <strong>这份材料能作为核验依据吗？</strong>
+              </span>
+            </button>
+            <div class="branch-grid three-branch">
+              <button class="tree-node outcome neutral" type="button" data-node="source_unavailable">
+                <span class="branch-answer">原文不可达</span>
+                <strong>证据不足</strong>
+                <small>来源报错 ≠ 虚假</small>
+              </button>
+              <button class="tree-node continue" type="button" data-node="source_yes">
+                <span class="branch-answer">官方原文／授权材料</span>
+                <strong>继续核对项目</strong>
+                <small>保留 URL、引句和版本</small>
+              </button>
+              <button class="tree-node outcome warning" type="button" data-node="source_weak">
+                <span class="branch-answer">第三方／搜索摘要／AI</span>
+                <strong>只作线索</strong>
+                <small>必须再回到原始发布页</small>
+              </button>
+            </div>
+          </div>
+
+          <div class="down-arrow" aria-hidden="true"><span>↓</span></div>
+
+          <div class="decision-block">
+            <button class="tree-node decision rule-node" type="button" data-node="project">
+              <span class="node-number">03</span>
               <span>
                 <span class="node-kicker">项目关系</span>
                 <strong>材料说的是同一个项目吗？</strong>
@@ -110,7 +141,7 @@
 
           <div class="decision-block">
             <button class="tree-node decision rule-node" type="button" data-node="entity">
-              <span class="node-number">03</span>
+              <span class="node-number">04</span>
               <span>
                 <span class="node-kicker">企业主体</span>
                 <strong>公告里的企业是本次投标公司吗？</strong>
@@ -139,7 +170,7 @@
 
           <div class="decision-block stage-block">
             <button class="tree-node decision rule-node" type="button" data-node="stage">
-              <span class="node-number">04</span>
+              <span class="node-number">05</span>
               <span>
                 <span class="node-kicker">证据阶段</span>
                 <strong>公开材料最高支持到哪一步？</strong>
@@ -159,6 +190,30 @@
               <button class="tree-node outcome acceptance" type="button" data-node="acceptance">
                 <span class="branch-answer">验收材料</span>
                 <strong>已完成候选</strong>
+                <small>仍需工作人员最终确认</small>
+              </button>
+            </div>
+          </div>
+
+          <div class="down-arrow" aria-hidden="true"><span>↓</span></div>
+
+          <div class="decision-block">
+            <button class="tree-node decision rule-node" type="button" data-node="version_check">
+              <span class="node-number">06</span>
+              <span>
+                <span class="node-kicker">反证与版本</span>
+                <strong>有更正、终止、部分验收或跨来源冲突吗？</strong>
+              </span>
+            </button>
+            <div class="branch-grid two-branch">
+              <button class="tree-node outcome warning" type="button" data-node="version_conflict">
+                <span class="branch-answer">有</span>
+                <strong>锁住自动结论</strong>
+                <small>列出冲突并转人工</small>
+              </button>
+              <button class="tree-node continue" type="button" data-node="version_clear">
+                <span class="branch-answer">未发现</span>
+                <strong>形成复核候选</strong>
                 <small>仍需工作人员最终确认</small>
               </button>
             </div>

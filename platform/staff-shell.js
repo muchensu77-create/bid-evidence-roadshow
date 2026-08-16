@@ -100,6 +100,66 @@ const $$ = (selector) => Array.from(document.querySelectorAll(selector));
 function taskById(id) { return TASKS.find((task) => task.id === id) || TASKS[0]; }
 function visibleTasks() { return state.queue === "all" ? TASKS : TASKS.filter((task) => task.queue === state.queue); }
 
+function escapeText(value) {
+  return String(value ?? "").replace(/[&<>"']/g, (character) => ({
+    "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+  })[character]);
+}
+
+function renderCrosscheckResult(payload) {
+  const result = $("#crosscheck-result");
+  const summary = payload.summary || {};
+  const ledger = payload.ledger || {};
+  const links = Array.isArray(ledger.candidate_urls) ? ledger.candidate_urls.slice(0, 6) : [];
+  result.innerHTML = `
+    <div class="crosscheck-result-grid">
+      <article><strong>MCP 检索</strong><span>${escapeText(ledger.system_status || "已完成")}</span></article>
+      <article><strong>候选来源</strong><span>${escapeText(ledger.candidate_count ?? links.length)} 条</span></article>
+      <article><strong>反向风险</strong><span>${escapeText((ledger.risk_signals || []).length)} 项待看</span></article>
+      <article><strong>AI 边界</strong><span>只整理，不自动定案</span></article>
+    </div>
+    <h4>DeepSeek 大白话摘要</h4>
+    <p>${escapeText(summary.summary || "已找到候选材料；仍需回到来源原文核对项目、主体和材料阶段。")}</p>
+    <div class="candidate-links">${links.map((url) => `<a href="${escapeText(url)}" target="_blank" rel="noopener noreferrer">${escapeText(url)}</a>`).join("") || "<span>本次没有形成可展示的候选链接。</span>"}</div>
+    <p><strong>下一步：</strong>${escapeText((summary.next_steps || ["由工作人员查看原文并决定是否补证。"])[0])}</p>`;
+}
+
+async function runLiveCrosscheck(event) {
+  event.preventDefault();
+  const result = $("#crosscheck-result");
+  if (!$("#crosscheck-confirm").checked) {
+    result.innerHTML = '<div class="crosscheck-placeholder"><strong>尚未外发</strong><p>请先确认输入仅为公开或虚构信息。</p></div>';
+    return;
+  }
+  const button = $("#crosscheck-submit");
+  button.disabled = true;
+  button.textContent = "MCP 正在检索，随后交给 DeepSeek…";
+  result.innerHTML = '<div class="crosscheck-placeholder"><strong>正在运行</strong><p>先做正向候选检索，再反向查看更正、终止和版本风险；不会自动通过。</p></div>';
+  try {
+    const response = await fetch("/api/ai/crosscheck", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        project_name: $("#crosscheck-project").value.trim(),
+        supplier_legal_name: $("#crosscheck-supplier").value.trim(),
+        project_code: $("#crosscheck-code").value.trim(),
+        credit_code: $("#crosscheck-credit").value.trim(),
+        region: $("#crosscheck-region").value.trim(),
+        data_classification: "public_or_fictional",
+        external_transfer_confirmed: true
+      })
+    });
+    const payload = await response.json();
+    if (!response.ok || !payload.ok) throw new Error(payload?.error?.message || "本机联调服务未就绪");
+    renderCrosscheckResult(payload);
+  } catch (error) {
+    result.innerHTML = `<div class="crosscheck-placeholder"><strong>公网静态版／本机服务未开启</strong><p>${escapeText(error.message)}。页面不会在浏览器中保存 API 密钥；可继续查看离线示例和系统边界。</p></div>`;
+  } finally {
+    button.disabled = false;
+    button.textContent = "联网寻找候选并生成摘要";
+  }
+}
+
 function renderCounts() {
   $("#count-all").textContent = TASKS.length;
   ["completed", "conducted", "award", "manual", "evidence"].forEach((queue) => {
@@ -191,6 +251,8 @@ $("#review-form").addEventListener("submit", (event) => {
   };
   $("#review-save-state").textContent = "本次会话已保存 · 不会写入正式系统";
 });
+
+$("#live-crosscheck-form")?.addEventListener("submit", runLiveCrosscheck);
 
 renderCounts();
 renderTaskList();

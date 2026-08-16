@@ -1,0 +1,8 @@
+{"notice_id":"S1","notice_type":"采购公告","project_name":"春潮测试采购项目","supplier_name":"","supplier_role":"","source_officiality":"aggregator","source_platform":"虚构第三方目录"}
+{"notice_id":"S2","notice_type":"候选人公示","project_name":"夏风测试服务项目","supplier_name":"夏风虚构科技有限公司","supplier_role":"候选人","award_status":"candidate","source_officiality":"aggregator","source_platform":"虚构第三方目录"}
+{"notice_id":"S3","notice_type":"合同公告","project_name":"秋实测试合同项目","supplier_name":"秋实虚构数据有限公司","supplier_role":"独立供应商","award_status":true,"source_officiality":"user_provided","source_platform":"虚构材料包"}
+{"notice_id":"S4","notice_type":"履约验收公告","project_name":"冬青测试验收项目","supplier_name":"冬青虚构服务有限公司","supplier_role":"联合体牵头人","award_status":1,"source_officiality":"official","source_platform":"虚构官方快照"}
+{"notice_id":"S5","notice_type":"更正公告","project_name":"晨星测试更正项目","supplier_name":"","supplier_role":"","source_officiality":"aggregator","source_platform":"虚构第三方目录"}
+{"notice_id":"S6","notice_type":"废标公告","project_name":"暮云测试终止项目","supplier_name":"暮云虚构工程有限公司","supplier_role":"投标人","award_status":false,"source_officiality":"aggregator","source_platform":"虚构第三方目录"}
+{"notice_id":"S7","notice_type":"资格预审","project_name":"青禾测试资格项目","supplier_name":"青禾虚构建设有限公司","supplier_role":"分包商","source_officiality":"aggregator","source_platform":"虚构第三方目录"}
+{"notice_id":"S8","notice_type":"数据快讯","project_name":"白鹭测试未知项目","supplier_name":"白鹭虚构研究中心","supplier_role":"自定义角色","award_status":"待人工确认","source_officiality":"unknown","source_platform":"虚构第三方目录","上游扩展键":"保留原文"}

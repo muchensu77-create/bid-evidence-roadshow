@@ -11,7 +11,9 @@
 - 工作人员演示：https://muchensu77-create.github.io/bid-evidence-roadshow/platform/staff-shell.html
 - 五分钟路演：https://muchensu77-create.github.io/bid-evidence-roadshow/slides.html
 
-公开站只使用虚构案例和汇总口径，不包含175条企业明细、API密钥、内部材料、受控数据或平台后端。DeepSeek和官方检索MCP在页面中按真实状态标注为独立原型，未宣称已与主工作台自动联调。
+公开站只使用虚构案例和汇总口径，不包含175条企业明细、API密钥、内部材料、受控数据或平台后端。
+
+本地版现已打通“官方检索 MCP → DeepSeek 复核摘要”的受控联调，但 GitHub Pages 是纯静态展示，不携带密钥，也不会在浏览器内直连外部模型。公开页面会明确显示这一边界。
 
 ## 路演操作
 

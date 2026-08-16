@@ -1,0 +1,57 @@
+{
+  "notice": "全部为虚构演示数据，不对应任何真实企业或项目。",
+  "total": 6,
+  "data": [
+    {
+      "seq": 1,
+      "company": "广东清禾数字科技有限公司",
+      "company_code": "DEMO-COMPANY-001",
+      "achievement": "顺德区智慧服务平台升级项目",
+      "project_code": "DEMO-SD-2024-001",
+      "purchaser": "顺德区示例服务中心"
+    },
+    {
+      "seq": 2,
+      "company": "广东远景数据有限公司",
+      "company_code": "DEMO-COMPANY-002",
+      "achievement": "政务数据治理服务项目",
+      "project_code": "DEMO-SD-2023-017",
+      "purchaser": "顺德区示例管理中心"
+    },
+    {
+      "seq": 3,
+      "company": "佛山启明技术有限公司",
+      "company_code": "DEMO-COMPANY-003",
+      "achievement": "公共服务系统运维项目",
+      "purchaser": "佛山市示例单位"
+    },
+    {
+      "seq": 4,
+      "company": "岭南云创科技有限公司",
+      "company_code": "DEMO-COMPANY-004",
+      "achievement": "历史档案数字化建设项目"
+    },
+    {
+      "seq": 5,
+      "company": "广东星桥数智科技有限公司",
+      "company_code": "DEMO-COMPANY-005",
+      "achievement": "公共服务数据平台建设项目",
+      "project_code": "DEMO-SD-2025-031",
+      "purchaser": "顺德区虚构公共服务中心",
+      "project_date": "2025-05-06",
+      "role": "合同乙方",
+      "demo_note": "虚构完全匹配案例：事实核验受支持，合同只能支持曾开展过，尚不能证明已经完成。"
+    },
+    {
+      "seq": 6,
+      "company": "广东云帆政务科技有限公司",
+      "company_code": "DEMO-COMPANY-006",
+      "achievement": "政务协同应用运维服务项目",
+      "project_code": "DEMO-SD-2024-086",
+      "purchaser": "顺德区虚构政务协同中心",
+      "project_date": "2025-01-20",
+      "role": "合同乙方",
+      "demo_note": "虚构完全匹配案例：事实核验受支持且具备验收证据，达到主办方确认的完成门槛。"
+    }
+  ]
+}

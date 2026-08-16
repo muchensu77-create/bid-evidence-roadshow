@@ -29,6 +29,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .site-header { position: sticky; z-index: 30; top: 0; display: flex; align-items: center; justify-content: space-between; gap: 24px; min-height: 70px; padding: 11px clamp(18px, 3.5vw, 58px); border-bottom: 1px solid rgba(220,231,226,.9); background: rgba(243,247,245,.94); backdrop-filter: blur(14px); }
 .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
 .brand-mark { display: grid; width: 44px; height: 44px; place-items: center; border-radius: 13px; color: var(--navy); background: var(--lime); font-size: 23px; font-weight: 900; }
+.brand-mark img { width: 90%; height: 90%; object-fit: contain; }
 .brand strong, .brand small { display: block; }
 .brand strong { font-size: 17px; }
 .brand small { margin-top: 2px; color: var(--muted); font-size: 11px; }
@@ -36,7 +37,6 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .header-actions a { min-height: 42px; padding: 11px 13px; border-radius: 10px; color: var(--muted); font-size: 12px; font-weight: 750; text-decoration: none; }
 .header-actions a:hover { color: var(--navy); background: #fff; }
 .header-actions .header-primary { color: #fff; background: var(--navy); }
-.header-actions .public-note { display: inline-flex; align-items: center; min-height: 42px; padding: 11px 13px; border-radius: 10px; color: #fff; background: var(--navy); font-size: 12px; font-weight: 750; }
 
 .truth-banner { display: flex; justify-content: center; gap: 7px; padding: 9px 20px; color: #77511d; background: var(--amber-soft); font-size: 12px; line-height: 1.55; text-align: center; }
 main, footer { width: min(1500px, calc(100% - 42px)); margin-inline: auto; }
@@ -178,8 +178,30 @@ h1 { max-width: 950px; margin: 8px 0 10px; font-size: clamp(30px,3.2vw,50px); li
 .inline-action { display: inline-block; margin-top: 12px; color: var(--teal); font-size: 11px; font-weight: 850; text-decoration: none; }
 
 .rule-layout { display: grid; grid-template-columns: 1.12fr .88fr; gap: 12px; }
-.logic-card,.stage-card,.human-card,.unknown-card { padding: 21px; border: 1px solid var(--line); border-radius: 15px; background: var(--surface); }
-.logic-card h3,.stage-card h3,.human-card h3,.unknown-card h3 { margin-bottom: 14px; font-size: 18px; }
+.logic-card,.stage-card,.human-card,.unknown-card,.source-policy-card,.process-map-card { padding: 21px; border: 1px solid var(--line); border-radius: 15px; background: var(--surface); }
+.logic-card h3,.stage-card h3,.human-card h3,.unknown-card h3,.source-policy-card h3,.process-map-card h3 { margin-bottom: 14px; font-size: 18px; }
+.source-policy-card,.process-map-card { grid-column: 1 / -1; }
+.input-source-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 10px; }
+.input-source-grid > div { padding: 14px; border-radius: 11px; background: #f5f8f6; }
+.input-source-grid span,.input-source-grid strong { display: block; }
+.input-source-grid span { color: var(--teal); font-size: 9px; font-weight: 900; }
+.input-source-grid strong { margin-top: 5px; font-size: 12px; }
+.input-source-grid p,.source-levels p { margin: 6px 0 0; color: var(--muted); font-size: 10px; line-height: 1.55; }
+.source-levels { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 10px; margin-top: 10px; }
+.source-levels article { padding: 13px; border: 1px solid #e2eae7; border-radius: 11px; background: #fff; }
+.source-levels b,.source-levels strong { display: block; }
+.source-levels b { width: max-content; padding: 3px 7px; border-radius: 999px; font-size: 8px; }
+.source-levels strong { margin-top: 8px; font-size: 11px; }
+.source-official b { color: #076a5d; background: #dff2ed; }
+.source-aggregate b { color: #245f84; background: var(--blue-soft); }
+.source-clue b { color: #79531e; background: var(--amber-soft); }
+.process-map-card .section-title-row { margin-bottom: 12px; }
+.full-process { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 9px; margin: 0; padding: 0; list-style: none; }
+.full-process li { position: relative; min-height: 116px; padding: 13px 12px 12px 46px; border: 1px solid #e1e9e6; border-radius: 11px; background: #f8faf9; }
+.full-process li > span { position: absolute; top: 12px; left: 12px; display: grid; width: 25px; height: 25px; place-items: center; border-radius: 8px; color: var(--navy); background: var(--lime); font-size: 8px; font-weight: 900; }
+.full-process strong,.full-process small { display: block; }
+.full-process strong { font-size: 11px; }
+.full-process small { margin-top: 6px; color: var(--muted); font-size: 9px; line-height: 1.55; }
 .rule-gates { margin: 0; padding: 0; list-style: none; }
 .rule-gates li { display: grid; grid-template-columns: 38px 1fr; gap: 12px; padding: 12px 0; border-bottom: 1px solid #e7eeeb; }
 .rule-gates li:last-child { border-bottom: 0; }
@@ -212,6 +234,7 @@ button:focus-visible,a:focus-visible,select:focus-visible,textarea:focus-visible
   .integration-flow { display: flex; overflow-x: auto; padding-bottom: 8px; }
   .integration-flow article { min-width: 220px; }
   .integration-flow i { min-width: 24px; }
+  .full-process { grid-template-columns: repeat(3,minmax(0,1fr)); }
 }
 
 @media (max-width: 850px) {
@@ -221,6 +244,8 @@ button:focus-visible,a:focus-visible,select:focus-visible,textarea:focus-visible
   main,footer { width: min(100% - 24px,1500px); }
   .how-to { width: 100%; }
   .task-workspace,.rule-layout,.system-grid { grid-template-columns: 1fr; }
+  .input-source-grid,.source-levels { grid-template-columns: 1fr; }
+  .full-process { grid-template-columns: repeat(2,minmax(0,1fr)); }
   .task-list-panel { position: static; max-height: none; }
   .task-list { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); max-height: 360px; }
 }
@@ -247,6 +272,7 @@ button:focus-visible,a:focus-visible,select:focus-visible,textarea:focus-visible
   .claim-summary,.gate-grid,.decision-section { grid-template-columns: 1fr; }
   .system-card { padding: 16px; }
   .system-card dl div,.tool-list li { grid-template-columns: 1fr; gap: 4px; }
+  .full-process { grid-template-columns: 1fr; }
   footer { flex-direction: column; }
 }
 

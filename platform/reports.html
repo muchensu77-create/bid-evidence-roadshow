@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="业绩核验工作台的产品研发验证、规则抽样与数据边界说明。" />
+    <title>产品研发与数据说明 · 业绩核验工作台</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body class="report-page">
+    <header class="report-hero">
+      <div class="report-container">
+        <a class="report-back" href="./index.html">← 返回业绩核验工作台</a>
+        <div class="eyebrow">Product Development &amp; Data Notes</div>
+        <h1>这页证明产品怎样被验证，<br />不是替 175 条业绩背书</h1>
+        <p>下面六组材料分别回答“程序是否按设计工作”、“数据能否稳定接入”、“演示规模能否运行”以及“规则与数据有什么边界”。</p>
+      </div>
+    </header>
+
+    <main class="report-container report-main">
+      <section class="report-warning" aria-labelledby="warning-title">
+        <div>
+          <div class="eyebrow">重要边界</div>
+          <h2 id="warning-title">产品研发与数据说明，不是官网证据库</h2>
+          <p>引擎测试、导入测试、性能基准、规则抽样、公开证据审计和商购数据清洗，都不能直接证明某一条历史业绩真实、已完成或能在本次投标中加分。</p>
+        </div>
+        <a href="#official-source-library">官网来源库状态 ↓</a>
+      </section>
+
+      <nav class="report-index" aria-label="本页目录">
+        <a href="#engine-tests"><span>01</span>引擎断言</a>
+        <a href="#import-tests"><span>02</span>导入测试</a>
+        <a href="#benchmark"><span>03</span>性能基准</a>
+        <a href="#rule-sample"><span>04</span>规则抽样</a>
+        <a href="#evidence-audit"><span>05</span>证据审计</a>
+        <a href="#purchased-data"><span>06</span>商购数据</a>
+      </nav>
+
+      <section id="engine-tests" class="report-section">
+        <div class="report-section-number">263</div>
+        <div class="report-section-content">
+          <div class="eyebrow">Engine Assertions</div>
+          <h2>引擎断言</h2>
+          <p class="report-lead">用自动化反例检查项目、主体、证据阶段和固定完成口径是否按设计运行。</p>
+          <div class="proof-grid">
+            <article><strong>它证明</strong><p>查无候选不会被判成虚假；中标不会被写成已开展或已完成；合同只支持曾开展过；验收才进入已完成候选。</p></article>
+            <article><strong>它不证明</strong><p>不证明 175 条业绩已逐条对应官网原文，不证明匹配准确率，也不代替采购评审结论。</p></article>
+          </div>
+          <p class="report-source">底层记录：<code>tests/engine.test.js</code>。“263”是当前测试文件中的断言调用数，不等于 263 个独立业务用例。</p>
+        </div>
+      </section>
+
+      <section id="import-tests" class="report-section">
+        <div class="report-section-number">41</div>
+        <div class="report-section-content">
+          <div class="eyebrow">Import Tests</div>
+          <h2>数据导入测试</h2>
+          <p class="report-lead">针对 JSON、JSONL、CSV、XLSX、字符编码、字段映射、多供应商展开和错误隔离的 41 项回归检查。</p>
+          <div class="proof-grid">
+            <article><strong>它证明</strong><p>约定格式内的文件能被稳定读取，关键字段能按数据契约映射，无效记录会被提示或隔离。</p></article>
+            <article><strong>它不证明</strong><p>不保证卖方字段的业务含义正确，不保证数据完整，也不会把第三方记录自动升级为官方证据。</p></article>
+          </div>
+          <p class="report-source">底层记录：<code>tests/test_audit_dataset.py</code>及导入固定样例。</p>
+        </div>
+      </section>
+
+      <section id="benchmark" class="report-section">
+        <div class="report-section-number">70万</div>
+        <div class="report-section-content">
+          <div class="eyebrow">Local Benchmark</div>
+          <h2>175 × 4,000 次候选比较</h2>
+          <p class="report-lead">本机单次纯内存基准 2,943 毫秒，对外口径约 3.0 秒，用来检查黑客松演示规模是否可运行。</p>
+          <div class="proof-grid">
+            <article><strong>它证明</strong><p>在当前机器和当前算法下，700,000 次内存候选比较可在演示量级完成。</p></article>
+            <article><strong>它不证明</strong><p>不包含网页下载、扫描识别、文件清洗、浏览器渲染和人工复核；不是生产环境 SLA，也不是 70 万条业绩。</p></article>
+          </div>
+          <p class="report-source">测量脚本：<code>scripts/benchmark_engine.js</code>。不同机器和运行负载会导致耗时波动。</p>
+        </div>
+      </section>
+
+      <section id="rule-sample" class="report-section">
+        <div class="report-section-number">10份</div>
+        <div class="report-section-content">
+          <div class="eyebrow">Purposeful Rule Sample</div>
+          <h2>顺德采购文件规则抽样</h2>
+          <p class="report-lead">本次 10 份目的性样本中，合同材料为 10/10，明文要求完成并提供验收证据为 2/10，明文允许正在履约为 1/10。</p>
+          <div class="proof-grid">
+            <article><strong>它证明</strong><p>“项目真实”与“本次能加分”不是同一个问题；验收、在履约、联合体和分支机构口径会随采购文件变化。</p></article>
+            <article><strong>它不证明</strong><p>10 份文件是为观察规则差异所做的目的抽样，不是随机抽样，不代表顺德全区的发生率或统一口径。</p></article>
+          </div>
+          <p class="report-source">本题采用主办方当前回复口径：合同可支持“曾开展过”，验收才支持“已经完成”。10 份样本只说明其他采购项目的评分材料要求仍可能不同。</p>
+        </div>
+      </section>
+
+      <section id="evidence-audit" class="report-section">
+        <div class="report-section-number">12条</div>
+        <div class="report-section-content">
+          <div class="eyebrow">Public Evidence Audit</div>
+          <h2>代表性公开证据审计</h2>
+          <p class="report-lead">12 条代表样本中，7 条找到对应官方中标候选，1 条仅找到相关入库资格，4 条公开证据不足；未把查无写成虚假。</p>
+          <div class="proof-grid">
+            <article><strong>它证明</strong><p>公开检索可以形成候选与证据链，也能暴露入库资格误匹配、联合体归属、错别字、罕见字和非政府项目公开覆盖不足等问题。</p></article>
+            <article><strong>它不证明</strong><p>这 12 条不是 175 条的全量核验；找到的官方记录均只到中标阶段，不证明已签约、已完成或已验收。</p></article>
+          </div>
+          <p class="report-source">这是方法与边界审计，不是对企业的真伪裁决。</p>
+        </div>
+      </section>
+
+      <section id="purchased-data" class="report-section">
+        <div class="report-section-number">3,776</div>
+        <div class="report-section-content">
+          <div class="eyebrow">Purchased Data Cleaning</div>
+          <h2>商购公告数据清洗</h2>
+          <p class="report-lead">3,776 条记录的发布时间仅覆盖 21 天，与 175 条历史业绩未形成能够支持结论的可靠匹配。</p>
+          <div class="proof-grid">
+            <article><strong>它证明</strong><p>数据可以被规范化、分析字段质量并作为候选检索目录；同时它暴露了时间覆盖过窄的实际限制。</p></article>
+            <article><strong>它不证明</strong><p>未形成可靠匹配不等于业绩虚假；商购记录默认只是第三方候选，不代替官方原文，也不支撑验收结论。</p></article>
+          </div>
+          <a class="report-download" href="../outputs/01a00329-8b23-7d22-b5bb-98b3dc9754cd/广东公告数据_清洗核对结果.xlsx">下载清洗工作簿 ↓</a>
+        </div>
+      </section>
+
+      <section id="official-source-library" class="official-library-section">
+        <div class="eyebrow">Official Source Library</div>
+        <div class="library-heading">
+          <div>
+            <h2>官网来源目录（研究版）</h2>
+            <p>已完成本轮 175 条公开来源查询与编目；这是候选证据目录，不是真假名单。</p>
+          </div>
+          <span>本轮 175 条查询已完成</span>
+        </div>
+        <div class="library-status-grid">
+          <article><strong>175 / 175 有查询记录</strong><p>每条声明都保留本轮查询范围、查询词、处理状态和仍需补证之处。“查过”不等于“证实”。</p></article>
+          <article><strong>57 条可靠官方候选覆盖</strong><p>这是目录处理状态，不是工作台的“证据支持”，也不代表已完成、已验收或可加分。</p></article>
+          <article><strong>349 个去重官网链接</strong><p>链接按规范化网址去重，可包含项目公告、主体页、快照和相关官方入口；不是 349 条已证实业绩。</p></article>
+          <article><strong>157 份材料 → 163 条可比对记录</strong><p>规范公告在工作台适配时可按多供应商展开；163 是引擎实际比对的记录数。</p></article>
+          <article><strong>175 条全部仍需人工确认</strong><p>输入普遍缺项目编号、信用代码、年份和包组；联合体、更名、分包与截断项目名必须人工回看。</p></article>
+          <article><strong>入库与使用边界</strong><p>只有可定位的官方原文或经确认的获授权材料才能作为结论证据；商业网站和搜索引擎只用于发现候选。</p></article>
+        </div>
+        <div class="catalog-report-actions">
+          <a href="../research/official_source_catalog_175/reports/report.html" target="_blank" rel="noopener noreferrer">打开 175 条独立 HTML 完整目录 ↗</a>
+          <a href="#catalog-readme-summary">阅读 README 易读摘要 ↓</a>
+        </div>
+        <div id="catalog-readme-summary" class="catalog-readme-summary">
+          <h3>README 易读摘要</h3>
+          <ul>
+            <li>未找到公开候选，只能写“暂未找到可靠官方候选”，不能写成业绩虚假。</li>
+            <li>中标或成交材料只证明被选中，不单独证明已签合同、已开展、已完成或已验收。</li>
+            <li>联合体、分包、总分公司、母子公司、名称变更、错别字与截断项目名保留差异并转人工。</li>
+            <li>本轮基线包括全国与地方公共资源交易平台、政府采购网和政府部门官网；不声称穷尽整个互联网。</li>
+          </ul>
+          <p>查询日期基线：2026-08-15（Asia/Hong_Kong）。本页已将 README 关键边界转为 UTF-8 HTML，不直接打开原始 Markdown。</p>
+        </div>
+        <p class="library-final-note">目录建设已完成本轮查询，但产品仍会根据引擎自然计算输出“公开证据不足”或“复杂待复核”；不会把目录覆盖硬编码成事实支持。</p>
+      </section>
+    </main>
+
+    <footer class="report-footer">
+      <div class="report-container">
+        <span>业绩核验工作台 · 产品研发与数据说明</span>
+        <a href="./index.html">返回工作台 ↑</a>
+      </div>
+    </footer>
+  </body>
+</html>

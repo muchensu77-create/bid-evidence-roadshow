@@ -99,6 +99,12 @@ a:focus-visible {
   line-height: 1;
 }
 
+.back-link span img {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+}
+
 .header-title h1,
 .header-title p,
 .logic-heading h2,

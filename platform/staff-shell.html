@@ -5,21 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="投标业绩核验工作人员端——半真实任务、证据与人工复核流程。" />
     <title>工作人员端｜业绩核验工作台</title>
+    <link rel="icon" type="image/png" href="./assets/evidence-verification-favicon.png" />
     <link rel="stylesheet" href="./staff-shell.css?v=staff-20260816" />
+    <link rel="stylesheet" href="./theme-v3.css?v=20260816" />
   </head>
   <body>
     <a class="skip-link" href="#main-content">跳到主要内容</a>
 
     <header class="site-header">
       <a class="brand" href="./index.html" aria-label="返回领导展示页">
-        <span class="brand-mark" aria-hidden="true">证</span>
+        <span class="brand-mark" aria-hidden="true"><img src="./assets/evidence-verification-logo.png" alt="" /></span>
         <span><strong>业绩核验工作台</strong><small>工作人员端 · 研究原型</small></span>
       </a>
       <nav class="header-actions" aria-label="跨页面导航">
         <a href="./index.html">领导展示</a>
         <a href="./logic-sandbox.html">判断树</a>
         <a href="./ai_lab.html">DeepSeek 实验室</a>
-        <span class="header-primary public-note">175 条真实研究批次仅限本地</span>
+        <a class="header-primary" href="./?view=workbench">打开 175 条研究工作台</a>
       </nav>
     </header>
 
@@ -53,7 +55,7 @@
           <div><span class="eyebrow">DEMO_ONLY · LOCAL SESSION</span><h2 id="tasks-title">虚构任务队列</h2></div>
           <div class="panel-actions">
             <span id="queue-summary">6 条虚构任务 · 当前显示全部</span>
-            <span>公开站不包含175条企业明细</span>
+            <a href="./?view=workbench">切换到真实 175 条研究批次 →</a>
           </div>
         </div>
 
@@ -129,6 +131,32 @@
           <p>绿色表示当前已有；蓝色表示独立原型已验证；黄色表示仍需联调或正式资源。</p>
         </div>
 
+        <section class="live-crosscheck" aria-labelledby="live-crosscheck-title">
+          <div class="live-crosscheck-copy">
+            <span class="eyebrow">LOCAL LIVE PIPELINE · 公开或虚构信息</span>
+            <h3 id="live-crosscheck-title">官方检索 MCP 找材料，DeepSeek 把材料读成复核摘要</h3>
+            <p>这条联调链只在本机安全服务开启时运行。MCP 负责联网寻找和反向检查更正／终止线索；DeepSeek 负责整理候选，不作真假结论。</p>
+            <div class="pipeline-chips" aria-label="联网核验处理步骤">
+              <span>① MCP 联网检索</span><i>→</i><span>② DeepSeek 阅读</span><i>→</i><span>③ 规则边界</span><i>→</i><span>④ 人工确认</span>
+            </div>
+          </div>
+          <form id="live-crosscheck-form" class="live-crosscheck-form">
+            <label>项目名称<input id="crosscheck-project" required value="政务数据治理服务项目" /></label>
+            <label>投标公司<input id="crosscheck-supplier" required value="广东远景数据有限公司" /></label>
+            <label>项目编号（可选）<input id="crosscheck-code" value="DEMO-SD-2023-017" /></label>
+            <label>统一社会信用代码（可选）<input id="crosscheck-credit" /></label>
+            <label>地区（可选）<input id="crosscheck-region" value="广东 佛山 顺德" /></label>
+            <label class="transfer-confirm"><input id="crosscheck-confirm" type="checkbox" />我确认以上仅为公开信息或虚构演示信息，可发送至外部服务</label>
+            <button id="crosscheck-submit" type="submit">联网寻找候选并生成摘要</button>
+          </form>
+          <div id="crosscheck-result" class="crosscheck-result" aria-live="polite">
+            <div class="crosscheck-placeholder">
+              <strong>等待本机联调</strong>
+              <p>GitHub 公网页面不会保存或携带 API 密钥；离线提交版会保留界面和示例结果。</p>
+            </div>
+          </div>
+        </section>
+
         <div class="integration-flow" aria-label="能力接入链路">
           <article><span class="status ready">已接入</span><b>任务声明库</b><strong>175 条</strong><p>投标公司＋自报历史项目。是待核查清单，不是标准答案。</p></article>
           <i aria-hidden="true">→</i>
@@ -194,6 +222,44 @@
         </div>
 
         <div class="rule-layout">
+          <section class="source-policy-card">
+            <h3>先看输入和来源：什么可以进入后续核对</h3>
+            <div class="input-source-grid">
+              <div>
+                <span>最低必需输入</span>
+                <strong>企业名称＋自报项目＋稳定任务号</strong>
+                <p>只能建立待核任务，不足以直接确认同一项目和同一主体。</p>
+              </div>
+              <div>
+                <span>建议补齐的硬字段</span>
+                <strong>信用代码、项目编号、包组、采购人、年份</strong>
+                <p>它们用来排除同名项目、多包组和企业名称相似等误配。</p>
+              </div>
+            </div>
+            <div class="source-levels" aria-label="来源分级">
+              <article class="source-official"><b>可作依据</b><strong>官方发布页／获授权材料</strong><p>保留URL、发布单位、时间、版本和原文引句。</p></article>
+              <article class="source-aggregate"><b>尽量回源</b><strong>官方归集平台</strong><p>可作候选入口，有条件时回到来源发布页。</p></article>
+              <article class="source-clue"><b>只作线索</b><strong>商购目录／第三方／搜索摘要／AI</strong><p>可帮助寻址和扩展关键词，不能独立支撑结论。</p></article>
+            </div>
+          </section>
+
+          <section class="process-map-card">
+            <div class="section-title-row"><h3>完整处理链：从原始声明到人工留痕</h3><span>与《投标业绩AI核验系统逻辑链路》对齐</span></div>
+            <ol class="full-process">
+              <li><span>01</span><strong>导入与体检</strong><small>保留原始值，查缺失、截断、乱码和一行多项目</small></li>
+              <li><span>02</span><strong>生成查询任务</strong><small>公司名＋项目名，叠加编号、采购人、年份与别名</small></li>
+              <li><span>03</span><strong>寻找候选</strong><small>区分未找到、来源报错和已找到；前两者都不等于虚假</small></li>
+              <li><span>04</span><strong>回到原文</strong><small>官方原文或授权材料才进入事实核对</small></li>
+              <li><span>05</span><strong>候选排序</strong><small>名称、编号、包组、采购人、年份组合；排序分不是真实性概率</small></li>
+              <li><span>06</span><strong>跨来源归并</strong><small>同一项目多公告归簇，转载去重，保留包组、版本与来源</small></li>
+              <li><span>07</span><strong>项目核对</strong><small>编号、包组优先；名称、采购人、年份辅助</small></li>
+              <li><span>08</span><strong>主体与角色核对</strong><small>信用代码优先；更名、联合体、分包、分公司需桥接材料</small></li>
+              <li><span>09</span><strong>材料阶段</strong><small>中标＝线索；合同＝曾开展候选；验收＝已完成候选最低门槛</small></li>
+              <li><span>10</span><strong>反证与版本</strong><small>查更正、终止、撤销、部分验收、多包与跨来源冲突</small></li>
+              <li><span>11</span><strong>事实状态＋人工处置</strong><small>证据支持／字段冲突／复杂待复核／证据不足，最终由人确认并留痕</small></li>
+            </ol>
+          </section>
+
           <section class="logic-card">
             <h3>一项业绩要走过的四道门</h3>
             <ol class="rule-gates">

@@ -1,0 +1,45 @@
+{
+  "total": 4,
+  "data": [
+    {
+      "notice_id": "J1",
+      "notice_type": "award",
+      "project_name": "晨曦测试系统项目",
+      "supplier_name": "晨曦虚构科技有限公司",
+      "supplier_role": "独立供应商",
+      "award_status": 0,
+      "is_winner": false,
+      "source_platform": "虚构第三方目录"
+    },
+    {
+      "notice_id": "J2",
+      "notice_type": "award",
+      "project_name": "远山测试服务项目",
+      "supplier_name": "远山虚构数科有限公司",
+      "supplier_role": "投标人",
+      "award_status": false,
+      "is_winner": 0,
+      "source_platform": "虚构第三方目录"
+    },
+    {
+      "notice_id": "J3",
+      "notice_type": "award",
+      "project_name": "清泉测试平台项目",
+      "supplier_name": "清泉虚构软件有限公司",
+      "supplier_role": "候选人",
+      "award_status": "未入围",
+      "is_winner": "未获推荐",
+      "source_platform": "虚构第三方目录"
+    },
+    {
+      "notice_id": "J4",
+      "notice_type": "中标候选人公示",
+      "project_name": "云岭测试维护项目",
+      "supplier_name": "云岭虚构技术有限公司",
+      "supplier_role": "联合体成员",
+      "award_status": "candidate",
+      "is_winner": null,
+      "source_platform": "虚构第三方目录"
+    }
+  ]
+}

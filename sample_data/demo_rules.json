@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0.0",
+  "dataset_type": "performance_eligibility_rules",
+  "notice": "固定口径依据主办方2026-08-15回复建立：中标仅是线索，合同可支持‘曾开展过’，验收才达到‘已经完成’的最低门槛。系统只做初筛，最终仍由人工确认。",
+  "rules": [
+    {
+      "schema_version": "1.0.0",
+      "policy_id": "organizer-completion-acceptance-2026-08-15",
+      "name": "主办方口径：已经完成（至少验收）",
+      "short_name": "验收为完成门槛",
+      "description": "依据主办方当前回复：中标仅是线索，合同可支持曾开展过，验收才达到已经完成的最低证据门槛。",
+      "required_evidence_stage": "acceptance",
+      "automated_checks": [
+        "evidence_stage"
+      ],
+      "time_window": {
+        "status": "not_configured"
+      },
+      "similar_project": {
+        "status": "not_configured",
+        "required_keywords": []
+      },
+      "role": {
+        "status": "not_configured",
+        "allowed_roles": []
+      }
+    }
+  ]
+}
