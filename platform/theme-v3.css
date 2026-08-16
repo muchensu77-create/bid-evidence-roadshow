@@ -146,3 +146,104 @@ body.roadshow-mode .section { padding: 0 !important; }
   .live-crosscheck-form label, .live-crosscheck-form .transfer-confirm, .live-crosscheck-form button { grid-column: 1; }
   .pipeline-chips i { display:none; }
 }
+
+/* Projector legibility: audience-facing routes are readable from the back row. */
+body.roadshow-mode .eyebrow { font-size: 16px !important; }
+body.roadshow-mode .topbar h1 { font-size: clamp(44px, 5vw, 68px) !important; }
+body.roadshow-mode .topbar .lede { max-width: 900px; font-size: 20px !important; line-height: 1.55; }
+body.roadshow-mode .mode-button,
+body.roadshow-mode .qa-launch-button { min-height: 52px; font-size: 17px !important; }
+body.roadshow-mode .dataset-context { font-size: 17px !important; line-height: 1.5; }
+.roadshow-heading h2 { font-size: clamp(34px, 3.5vw, 48px) !important; }
+.roadshow-heading p { font-size: 18px !important; line-height: 1.55; }
+.demo-focus-badge span { font-size: 15px !important; }
+.demo-focus-badge strong { font-size: 18px !important; line-height: 1.45; }
+.roadshow-step { min-height: 102px !important; padding: 16px 18px !important; }
+.roadshow-step span { font-size: 15px !important; }
+.roadshow-step strong { font-size: 20px !important; line-height: 1.35; }
+.roadshow-step small { font-size: 15px !important; line-height: 1.35; }
+.roadshow-stage-shell { grid-template-columns: minmax(0, 1fr) 320px !important; min-height: 500px !important; }
+.roadshow-stage { padding: 28px !important; }
+.roadshow-controls > div:first-child > span { font-size: 15px !important; }
+.roadshow-controls > div:first-child > strong { font-size: 24px !important; line-height: 1.4; }
+.roadshow-controls > div:first-child > p { font-size: 17px !important; line-height: 1.65; }
+.roadshow-control-buttons .button { min-height: 52px; font-size: 17px !important; }
+.keyboard-hint { font-size: 14px !important; }
+.text-button { font-size: 16px !important; }
+.roadshow-boundary { font-size: 17px !important; line-height: 1.6; }
+.journey-kicker { font-size: 15px !important; }
+.journey-card h3 { font-size: clamp(32px, 3vw, 44px) !important; }
+.journey-lead { font-size: 19px !important; line-height: 1.65; }
+.statement-grid span,
+.gate-summary-grid span,
+.result-output-grid > section > span { font-size: 15px !important; }
+.statement-grid strong { font-size: 22px !important; }
+.statement-grid small { font-size: 15px !important; }
+.explain-box strong,
+.hard-rule-strip strong,
+.detail-boundary strong { font-size: 18px !important; }
+.explain-box span,
+.hard-rule-strip span,
+.detail-boundary span { font-size: 16px !important; }
+.ai-step-grid h4,
+.extraction-heading strong { font-size: 18px !important; }
+.ai-step-grid p,
+.query-chips code,
+.logic-list,
+.candidate-highlight span,
+.candidate-highlight small,
+.extraction-heading span,
+.mvp-boundary,
+.gate-summary-grid p,
+.result-output-grid p { font-size: 15px !important; }
+.candidate-highlight strong { font-size: 20px !important; }
+.candidate-highlight em { font-size: 15px !important; }
+.task-evidence blockquote { font-size: 19px !important; line-height: 1.7; }
+
+/* The Q&A tree is deliberately larger even though it becomes taller. */
+.sandbox-header .eyebrow { font-size: 14px !important; }
+.sandbox-header h1 { font-size: clamp(38px, 4vw, 56px) !important; }
+.sandbox-header p { font-size: 18px !important; }
+.logic-heading h2 { font-size: clamp(30px, 3vw, 42px) !important; }
+.logic-heading p,
+.logic-roles { font-size: 16px !important; }
+.tree-node strong { font-size: 17px !important; line-height: 1.4; }
+.tree-node small { font-size: 13px !important; line-height: 1.5; }
+.node-kicker,
+.branch-answer { font-size: 12px !important; }
+.tree-node.start,
+.tree-node.final { padding: 18px 22px !important; }
+.tree-node.decision { min-height: 76px !important; padding: 14px 18px !important; }
+.branch-grid .tree-node { min-height: 94px !important; padding: 14px 16px !important; }
+.stage-branches .tree-node { min-height: 102px !important; }
+.node-number { width: 40px !important; height: 40px !important; font-size: 13px !important; }
+.case-header h2 { font-size: 28px !important; }
+.case-state { font-size: 14px !important; }
+.selected-node > span,
+.output-card > span,
+.output-detail span,
+.answer-script > span { font-size: 12px !important; }
+.selected-node strong { font-size: 19px !important; }
+.selected-node p { font-size: 16px !important; }
+.section-label { font-size: 15px !important; }
+.section-label span { width: 27px !important; height: 27px !important; font-size: 12px !important; }
+.statement-list { gap: 11px !important; }
+.statement-list > div { grid-template-columns: 96px minmax(0, 1fr) !important; padding: 12px 14px !important; }
+.statement-list dt { font-size: 14px !important; }
+.statement-list dd { font-size: 16px !important; }
+.case-panel blockquote { font-size: 16px !important; }
+.source-line { font-size: 13px !important; }
+.condition-row { grid-template-columns: 24px minmax(0, 1fr) auto !important; font-size: 15px !important; }
+.condition-icon { width: 24px !important; height: 24px !important; font-size: 12px !important; }
+.condition-row b { font-size: 13px !important; }
+.output-card strong { font-size: 18px !important; }
+.output-detail p,
+.safety-principle p,
+.answer-script p { font-size: 15px !important; }
+.safety-principle strong { font-size: 14px !important; }
+.sandbox-footer { font-size: 14px !important; }
+
+@media (max-width: 920px) {
+  .roadshow-stage-shell { grid-template-columns: 1fr !important; }
+  .roadshow-step { min-height: 88px !important; padding: 12px !important; }
+}
