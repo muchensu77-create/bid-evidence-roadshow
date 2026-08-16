@@ -47,6 +47,7 @@ a { color: var(--v3-blue-dark); }
 .leader-principle-band { background: var(--v3-slate) !important; color: #eef4f8 !important; border: 0 !important; }
 
 /* The default leader experience is the four-screen roadshow console. */
+body.roadshow-mode .app-shell { display: block !important; width: 100% !important; min-width: 0 !important; }
 body.roadshow-mode .sidebar { display: none !important; }
 body.roadshow-mode .main-content { width: 100% !important; max-width: none !important; margin: 0 !important; padding: 22px clamp(18px, 3vw, 44px) 36px !important; }
 body.roadshow-mode .topbar { display: grid !important; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: 24px; padding: 0 0 16px !important; border: 0 !important; background: transparent !important; }
